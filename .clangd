@@ -1,0 +1,23 @@
+CompileFlags:
+  Add:
+    - -Wall
+    - -Wextra
+    - -Werror
+    - -pthread
+  Remove: []
+  Compiler: cc
+
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+  ClangTidy:
+    Add: [performance-*, bugprone-*, concurrency-*]
+    Remove: [readability-magic-numbers]
+
+Index:
+  Background: Build
+
+InlayHints:
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true

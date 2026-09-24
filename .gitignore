@@ -1,0 +1,9 @@
+# ignore swap and object files
+*.swp
+*.o
+
+# ignore the Clangd .cache dir
+.cache
+
+# ignore the codexion executable
+codexion
