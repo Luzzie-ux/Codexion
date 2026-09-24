@@ -6,14 +6,14 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 21:23:08 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/24 13:29:38 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/24 15:46:44 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include <stdio.h>
 
-_Bool	error(int status)
+int	error(int status)
 {
 	fprintf(stderr, "[ERROR]: ");
 	if (status == 0)
@@ -30,7 +30,7 @@ _Bool	error(int status)
 	return (1);
 }
 
-_Bool	usage(void)
+int	usage(void)
 {
 	fprintf(stderr, " <nbr_of_coders> <time_burnout> <time_compile>");
 	fprintf(stderr, " <time_debug> <time_refactor> <compiles_required>");

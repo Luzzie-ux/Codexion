@@ -6,19 +6,11 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 21:22:39 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/24 12:36:43 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/24 14:40:16 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-/*
-void	kill(t_table *table)
-{
-	free(table->coders);
-	free(table->dongles);
-}
-*/
 
 void	*ft_memset(void *s, int c, size_t n)
 {

@@ -6,12 +6,12 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 21:22:32 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/24 13:27:17 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/24 15:47:09 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include <stddef.h>
+#include <stdio.h>
 
 size_t	ft_strlen(const char *s)
 {
