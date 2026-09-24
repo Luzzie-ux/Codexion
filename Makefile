@@ -6,14 +6,14 @@
 #    By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/24 11:03:24 by rodrpere          #+#    #+#              #
-#    Updated: 2026/09/24 14:25:50 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/09/24 16:04:54 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ELF:
 NAME=codexion
 
-# Compiling: 
+# Compiling:
 CC=cc
 CFLAGS= -Wall -Wextra -Werror -pthread
 INCS=-Iincs
@@ -26,6 +26,7 @@ UTILS=srcs/utils
 
 BUILD=build
 SRCS=$(UTILS)/errors.c $(UTILS)/memory.c $(UTILS)/strings.c \
+	 $(RUNTIME)/parser.c \
 	 $(MAIN)
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 
@@ -39,7 +40,7 @@ $(BUILD)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
-	rm -rf $(BUILD)/$(notdir $(OBJS))
+	rm -rf $(BUILD)/main.o
 	rm -rf $(BUILD)/srcs
 
 fclean: clean
@@ -61,4 +62,4 @@ banner:
 	@echo "   ░░░   ░░░  ░░░░  ░░░░░ ░   ░ ░░░  ░░░  ░   ░ "
 	@echo ""
 
-.PHONY: all clean fclean re debug banner
+.PHONY: all clean fclean re debug compdb banner

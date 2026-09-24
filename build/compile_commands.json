@@ -9,22 +9,6 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "main.c",
-   "-o",
-   "build/main.o"
-  ],
-  "file": "main.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
    "srcs/utils/errors.c",
    "-o",
    "build/srcs/utils/errors.o"
@@ -62,5 +46,37 @@
    "build/srcs/utils/strings.o"
   ],
   "file": "srcs/utils/strings.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "main.c",
+   "-o",
+   "build/main.o"
+  ],
+  "file": "main.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/runtime/parser.c",
+   "-o",
+   "build/srcs/runtime/parser.o"
+  ],
+  "file": "srcs/runtime/parser.c"
  }
 ]
