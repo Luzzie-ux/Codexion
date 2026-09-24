@@ -1,0 +1,66 @@
+[
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "main.c",
+   "-o",
+   "build/main.o"
+  ],
+  "file": "main.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/utils/errors.c",
+   "-o",
+   "build/srcs/utils/errors.o"
+  ],
+  "file": "srcs/utils/errors.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/utils/memory.c",
+   "-o",
+   "build/srcs/utils/memory.o"
+  ],
+  "file": "srcs/utils/memory.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/utils/strings.c",
+   "-o",
+   "build/srcs/utils/strings.o"
+  ],
+  "file": "srcs/utils/strings.c"
+ }
+]

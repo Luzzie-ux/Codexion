@@ -6,7 +6,7 @@
 #    By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/24 11:03:24 by rodrpere          #+#    #+#              #
-#    Updated: 2026/09/24 11:55:36 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/09/24 14:25:50 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,17 +20,16 @@ INCS=-Iincs
 
 # Files:
 MAIN=main.c
-ENV_DIR=srcs/env
-RUNTIME_DIR=srcs/runtime
-UTILS_DIR=srcs/utils
+ENV=srcs/env
+RUNTIME=srcs/runtime
+UTILS=srcs/utils
 
 BUILD=build
-COMPDB=$(BUILD)/compile_commands.json
-
-SRCS=$(MAIN)
+SRCS=$(UTILS)/errors.c $(UTILS)/memory.c $(UTILS)/strings.c \
+	 $(MAIN)
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 
-all: $(NAME)
+all: banner $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
@@ -46,10 +45,20 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 
-re: fclean all
+re: banner fclean $(NAME)
 
 debug: CFLAGS += -g
 debug: re
-	@echo "you can now run ./$(NAME) with gdb"
+	@echo "[You can now run $(NAME) with GDB]"
 
-.PHONY: all clean fclean re debug
+banner:
+	@echo " ▓▓▓   ▓▓▓  ▓▓▓▓  ▓▓▓▓▓ ▓   ▓ ▓▓▓  ▓▓▓  ▓   ▓   "
+	@echo "▓ ░░░ ▓ ░░▓ ▓░░░▓ ▓░░░░░ ▓ ▓ ░ ▓░░▓ ░░▓ ▓▓  ▓░  "
+	@echo "▓░ ░░░▓░ ░▓░▓░░░▓░▓▓▓▓░░░ ▓ ░ ░▓░░▓░ ░▓░▓░▓ ▓░░ "
+	@echo "▓░░   ▓░░ ▓░▓░░ ▓░▓░░░░  ▓ ▓ ░ ▓░░▓░░ ▓░▓░░▓▓░░ "
+	@echo " ▓▓▓   ▓▓▓ ░▓▓▓▓ ░▓▓▓▓▓░▓ ░ ▓ ▓▓▓░ ▓▓▓ ░▓░░ ▓░░ "
+	@echo "  ░░░   ░░░ ░░░░░ ░░░░░░ ░ ░ ░ ░░░  ░░░ ░░░  ░░ "
+	@echo "   ░░░   ░░░  ░░░░  ░░░░░ ░   ░ ░░░  ░░░  ░   ░ "
+	@echo ""
+
+.PHONY: all clean fclean re debug banner

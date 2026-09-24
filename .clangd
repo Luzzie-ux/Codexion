@@ -1,10 +1,5 @@
 CompileFlags:
-  Add:
-    - -Wall
-    - -Wextra
-    - -Werror
-    - -pthread
-    - -Iincs
+  Add: [-Wall -Wextra -Werror -pthread -Iincs]
   Remove: []
   Compiler: cc
 
