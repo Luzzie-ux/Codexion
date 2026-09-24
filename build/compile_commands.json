@@ -78,5 +78,21 @@
    "build/srcs/runtime/parser.o"
   ],
   "file": "srcs/runtime/parser.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/env/table.c",
+   "-o",
+   "build/srcs/env/table.o"
+  ],
+  "file": "srcs/env/table.c"
  }
 ]
