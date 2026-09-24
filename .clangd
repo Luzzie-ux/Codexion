@@ -4,6 +4,7 @@ CompileFlags:
     - -Wextra
     - -Werror
     - -pthread
+    - -Iincs
   Remove: []
   Compiler: cc
 
