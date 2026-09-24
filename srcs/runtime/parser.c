@@ -6,12 +6,14 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 21:22:49 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/24 15:45:52 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/24 18:22:26 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "env.h"
+#include "runtime.h"
+#include "stddef.h"
 
 static _Bool	characters(char *arg)
 {
@@ -72,4 +74,17 @@ _Bool	parser(char **args)
 	return (false);
 }
 
-void	*preprocess(char **argv);
+void	*preprocess(t_table *table, char **argv)
+{
+	if (parser(argv))
+		return (NULL);
+	table->size = ft_atol(argv[1]);
+	table->tm_burn = ft_atol(argv[2]);
+	table->tm_comp = ft_atol(argv[3]);
+	table->tm_debug = ft_atol(argv[4]);
+	table->tm_refac = ft_atol(argv[5]);
+	table->compiles = ft_atol(argv[6]);
+	table->cooldown = ft_atol(argv[7]);
+	table->schedule = ft_sched(argv[8]);
+	return (table);
+}
