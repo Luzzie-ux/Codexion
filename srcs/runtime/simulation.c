@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:55:34 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/25 14:04:18 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/26 00:18:04 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ _Bool	fifo_runtime(t_table *table)
 			return (free(table->coders), free(table->dongle), true);
 		while (i < table->size)
 		{
+			/*to change*/
 			table->coders[table->order[i]];
 		}
 		free(table->order);
