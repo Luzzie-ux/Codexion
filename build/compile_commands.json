@@ -94,5 +94,21 @@
    "build/srcs/env/table.o"
   ],
   "file": "srcs/env/table.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/scheduler/scheduler.c",
+   "-o",
+   "build/srcs/scheduler/scheduler.o"
+  ],
+  "file": "srcs/scheduler/scheduler.c"
  }
 ]

@@ -6,7 +6,7 @@
 #    By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/24 11:03:24 by rodrpere          #+#    #+#              #
-#    Updated: 2026/09/24 18:26:03 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/09/25 13:52:17 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ UTILS=srcs/utils
 BUILD=build
 SRCS=$(UTILS)/errors.c $(UTILS)/memory.c $(UTILS)/strings.c \
 	 $(ENV)/table.c \
-	 $(RUNTIME)/parser.c \
+	 $(RUNTIME)/scheduler.c $(RUNTIME)/parser.c \
 	 $(MAIN)
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 

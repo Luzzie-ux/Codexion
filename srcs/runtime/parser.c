@@ -6,14 +6,14 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 21:22:49 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/24 18:22:26 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/25 14:27:35 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "env.h"
 #include "runtime.h"
-#include "stddef.h"
+#include <stddef.h>
 
 static _Bool	characters(char *arg)
 {
@@ -31,11 +31,13 @@ static _Bool	characters(char *arg)
 	return (false);
 }
 
-static _Bool	scheduler(char *arg)
+static _Bool	schedule(char *arg)
 {
 	if (*arg == '\0')
 		return ((_Bool)error(4));
 	else if (!ft_strncmp(arg, "fifo", 4))
+		return (false);
+	else if (!ft_strncmp(arg, "lifo", 4))
 		return (false);
 	else if (!ft_strncmp(arg, "edf", 3))
 		return (false);
@@ -47,7 +49,7 @@ static _Bool	check(char **args)
 	int	i;
 
 	i = 0;
-	if (scheduler(args[8]))
+	if (schedule(args[8]))
 		return (true);
 	while (++i < 8)
 	{
@@ -86,5 +88,11 @@ void	*preprocess(t_table *table, char **argv)
 	table->compiles = ft_atol(argv[6]);
 	table->cooldown = ft_atol(argv[7]);
 	table->schedule = ft_sched(argv[8]);
+	table->dongle = cdongle(table);
+	if (!table->dongle)
+		return (NULL);
+	table->coders = ccoder(table);
+	if (!table->coders)
+		return (NULL);
 	return (table);
 }
