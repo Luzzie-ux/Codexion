@@ -6,31 +6,32 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:55:34 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/26 00:18:04 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/30 01:01:12 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "runtime.h"
 #include "env.h"
-#include <stdint.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-_Bool	fifo_runtime(t_table *table)
+_Bool	runtime(t_table *table, uint64_t *(*f)(const t_table *table))
 {
 	uint64_t	i;
 
 	i = 0;
 	while (table->compiles > 0)
 	{
-		table->order = fifo(table);
+		table->order = f(table); 
 		if (!table->order)
-			return (free(table->coders), free(table->dongle), true);
+			return (free(table->coders), free(table->dongles), true);
 		while (i < table->size)
 		{
 			/*to change*/
-			table->coders[table->order[i]];
+			i++;
 		}
 		free(table->order);
+		table->compiles--;
 	}
 	return (false);
 }

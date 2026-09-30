@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 15:13:21 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/25 15:12:59 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/30 00:55:38 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define ENV_H
 
 # include <bits/pthreadtypes.h>
-#include <iso646.h>
 # include <stddef.h>
 # include <stdint.h>
 # include <stdbool.h>
-#include <sys/types.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 typedef struct s_dongle t_dongle;
 typedef struct s_coder t_coder;
@@ -41,7 +41,7 @@ typedef enum e_schedule
 				EDF,
 }				t_schedule;
 
-t_schedule		ft_sched(char *schedule);
+t_schedule		ft_sched(const char *sched);
 
 typedef struct s_dongle
 {
@@ -56,16 +56,14 @@ typedef struct s_coder
 	t_action	action;
 	pthread_t	thread;
 	_Bool		(*send_request)(t_coder *s, t_dongle *d1, t_dongle *d2);
-	void		(*get_dongle)(t_coder *s, t_dongle *d);
 }				t_coder;
 
-void			get_dongle(t_coder *s, t_dongle *d);
 _Bool			send_request(t_coder *s, t_dongle *d1, t_dongle *d2);
 
 typedef struct s_table
 {
 	t_coder		*coders;
-	t_dongle	*dongle;
+	t_dongle	*dongles;
 	uint64_t	size;
 	uint64_t	tm_burn;
 	uint64_t	tm_comp;
@@ -76,5 +74,10 @@ typedef struct s_table
 	t_schedule	schedule;
 	uint64_t	*order;
 }				t_table;
+
+//Constructors:
+t_dongle	*dongle(size_t size);
+t_coder		*coder(size_t size);
+t_table		*reservation(t_table *table, const char **argv);
 
 #endif

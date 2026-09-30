@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 12:06:16 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/24 15:16:42 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/30 00:41:07 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <stdio.h>
 #include <stddef.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 // ERRORS:
 int		error(int status);

@@ -6,15 +6,13 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 12:07:07 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/25 14:05:36 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/09/30 00:42:59 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "utils.h"
 #include "runtime.h"
-#include <stdint.h>
-#include <stdlib.h>
 
 uint64_t	*fifo(const t_table *table)
 {
@@ -59,14 +57,14 @@ uint64_t	*edf(const t_table *table)
 _Bool		scheduler(t_table *table)
 {
 	if (table->schedule == FIFO)
-		return (fifo_runtime(table));
+		return (runtime(table, fifo));
 	else if (table->schedule == LIFO)
-		return (lifo_runtime(table));
+		return (runtime(table, lifo));
 	else
-		return (edf_runtime(table));
+		return (runtime(table, edf));
 }
 
-t_schedule	ft_sched(char *sched)
+t_schedule	ft_sched(const char *sched)
 {
 	if (!ft_strncmp(sched, "fifo", 4))
 		return (FIFO);
