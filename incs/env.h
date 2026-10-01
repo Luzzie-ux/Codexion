@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 15:13:21 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/30 00:55:38 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/01 21:24:28 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ typedef enum e_schedule
 				LIFO,
 				EDF,
 }				t_schedule;
-
-t_schedule		ft_sched(const char *sched);
 
 typedef struct s_dongle
 {

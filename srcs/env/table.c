@@ -6,15 +6,49 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 18:19:04 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/30 00:58:02 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/01 21:26:38 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "runtime.h"
 #include "env.h"
+#include <stdlib.h>
 
-t_table		*reservation(t_table *table, const char **argv)
+static t_schedule	ft_sched(const char *sched)
+{
+	if (!ft_strncmp(sched, "fifo", 4))
+		return (FIFO);
+	if (!ft_strncmp(sched, "lifo", 4))
+		return (LIFO);
+	return (EDF);
+}
+
+static uint64_t		*order(t_table *table)
+{
+	if (table->schedule == FIFO)
+		return (fifo(table->size));
+	else if (table->schedule == LIFO)
+		return (lifo(table->size));
+	else
+		return (edf(table));
+}
+
+static void			*ctor(t_table *table)
+{
+	table->coders = malloc(table->size);
+	if (!table->coders)
+		return (NULL);
+	table->dongles = malloc(table->size);
+	if (!table->dongles)
+		return (free(table->coders), NULL);
+	table->order = order(table);
+	if (!table->order)
+		return (free(table->coders), free(table->dongles), NULL);
+	return (table);
+}
+
+t_table				*reservation(t_table *table, const char **argv)
 {
 	if (parser(argv))
 		return (NULL);
@@ -27,11 +61,8 @@ t_table		*reservation(t_table *table, const char **argv)
 	table->cooldown = ft_atol(argv[7]);
 	table->schedule = ft_sched(argv[8]);
 	table->dongles = dongle(table->size);
-	if (!table->dongles)
+	if (!ctor(table))
 		return (NULL);
-	table->coders = coder(table->size);
-	if (!table->coders)
-		return (free(table->dongles), NULL);
 	return (table);
 }
 
