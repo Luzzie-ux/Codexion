@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 15:13:21 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/01 21:24:28 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 00:32:53 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_coder
 	t_dongle	*left;
 	t_action	action;
 	pthread_t	thread;
-	_Bool		(*send_request)(t_coder *s, t_dongle *d1, t_dongle *d2);
 }				t_coder;
 
 _Bool			send_request(t_coder *s, t_dongle *d1, t_dongle *d2);
@@ -67,7 +66,7 @@ typedef struct s_table
 	uint64_t	tm_comp;
 	uint64_t	tm_debug;
 	uint64_t	tm_refac;
-	uint64_t	compiles;
+	uint64_t	rounds;
 	uint64_t	cooldown;
 	t_schedule	schedule;
 	uint64_t	*order;

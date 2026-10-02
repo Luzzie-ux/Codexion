@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 18:19:04 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/01 21:26:38 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 01:03:23 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ static t_schedule	ft_sched(const char *sched)
 
 static uint64_t		*order(t_table *table)
 {
-	if (table->schedule == FIFO)
-		return (fifo(table->size));
-	else if (table->schedule == LIFO)
+	if (table->schedule == LIFO)
 		return (lifo(table->size));
 	else
-		return (edf(table));
+		return (fifo(table->size));
 }
 
 static void			*ctor(t_table *table)
@@ -57,10 +55,9 @@ t_table				*reservation(t_table *table, const char **argv)
 	table->tm_comp = ft_atol(argv[3]);
 	table->tm_debug = ft_atol(argv[4]);
 	table->tm_refac = ft_atol(argv[5]);
-	table->compiles = ft_atol(argv[6]);
+	table->rounds = ft_atol(argv[6]);
 	table->cooldown = ft_atol(argv[7]);
 	table->schedule = ft_sched(argv[8]);
-	table->dongles = dongle(table->size);
 	if (!ctor(table))
 		return (NULL);
 	return (table);

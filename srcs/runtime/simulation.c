@@ -6,25 +6,38 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:55:34 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/01 21:28:54 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 01:09:48 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "runtime.h"
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
 
-_Bool	runtime(t_table *table)
+static void cleanenv(t_table *table)
+{
+	free(table->coders);
+	free(table->dongles);
+	free(table->order);
+}
+
+_Bool	runtime(const t_table *table)
 {
 	uint64_t	i;
+	t_table *p;
 
-	i = 0;
-	while (table->compiles > 0)
+	p = (t_table*)table;
+	while (p->rounds > 0)
 	{
-		while (i < table->size)
-		{
-			/*to change*/
+		i = 0;
+		printf("[Compile Round - %ld]\n\n", p->rounds);
+		if (p->schedule == EDF)
+			edf(p->order);
+		while (i < p->size)
 			i++;
-		}
-		table->compiles--;
+		p->rounds--;
 	}
-	return (false);
+	return (cleanenv(p), false);
 }

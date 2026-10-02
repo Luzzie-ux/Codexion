@@ -6,17 +6,17 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 12:06:16 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/30 00:41:07 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 00:39:04 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-#include <stdio.h>
-#include <stddef.h>
-#include <stdbool.h>
-#include <stdlib.h>
+# include <stdio.h>
+# include <stddef.h>
+# include <stdbool.h>
+# include <stdlib.h>
 
 // ERRORS:
 int		error(int status);

@@ -6,12 +6,13 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 12:07:07 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/01 21:30:41 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 00:59:54 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "runtime.h"
+#include <stdlib.h>
+#include <stdint.h>
+#include <stddef.h>
 
 uint64_t	*fifo(const uint64_t size)
 {
@@ -19,10 +20,9 @@ uint64_t	*fifo(const uint64_t size)
 	uint64_t *res;
 
 	i = 0;
-	res = malloc(size);
+	res = malloc(sizeof(uint64_t) * size);
 	if (!res)
-		return (res);
-	res[size] = 0;
+		return (NULL);
 	while (i < size)
 	{
 		res[i] = i;
@@ -39,16 +39,19 @@ uint64_t	*lifo(const uint64_t size)
 
 	i = size;
 	j = 0;
-	buf = malloc(size);
+	buf = malloc(sizeof(uint64_t) * size);
 	if (!buf)
-		return (buf);
+		return (NULL);
 	while (j < size)
-		buf[j++] = i--;
+	{
+		buf[j] = i;
+		j++;
+		i--;
+	}
 	return (buf);
 }
 
-uint64_t	*edf(const t_table *table)
+void		edf(uint64_t *array)
 {
-	(void)table;
-	return (0);
+	(void)array;
 }
