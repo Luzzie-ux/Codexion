@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 12:06:16 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/02 00:39:04 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 19:46:50 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@
 
 // ERRORS:
 int		error(int status);
-int		usage(void);
-
-//MEMORY:
+int		usage(const char *name);
 void	*ft_memset(void *s, int c, size_t n);
 
 //STRINGS:
@@ -31,5 +29,8 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *nptr);
 long	ft_atol(const char *nptr);
+
+//PARSING:
+_Bool	parser(const char **args);
 
 #endif

@@ -6,14 +6,14 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 21:23:08 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/09/24 15:46:44 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 19:46:07 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include <stdio.h>
 
-int	error(int status)
+int		error(int status)
 {
 	fprintf(stderr, "[ERROR]: ");
 	if (status == 0)
@@ -30,10 +30,23 @@ int	error(int status)
 	return (1);
 }
 
-int	usage(void)
+int		usage(const char *name)
 {
+	fprintf(stderr, "Usage: %s", name);
 	fprintf(stderr, " <nbr_of_coders> <time_burnout> <time_compile>");
 	fprintf(stderr, " <time_debug> <time_refactor> <compiles_required>");
 	fprintf(stderr, " <dongle_cooldown> <schedule>\n");
 	return (1);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*p;
+
+	if (!s || n == 0)
+		return (s);
+	p = (unsigned char *)s;
+	while (n--)
+		*p++ = c;
+	return (s);
 }

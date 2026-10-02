@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 21:22:49 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/01 21:03:41 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 19:43:42 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ static _Bool	schedule(const char *arg)
 {
 	if (*arg == '\0')
 		return ((_Bool)error(4));
-	else if (!ft_strcmp(arg, "fifo"))
+	else if (ft_strcmp(arg, "fifo") == 0)
 		return (false);
-	else if (!ft_strcmp(arg, "lifo"))
+	else if (ft_strcmp(arg, "lifo") == 0)
 		return (false);
-	else if (!ft_strcmp(arg, "edf"))
+	else if (ft_strcmp(arg, "edf") == 0)
 		return (false);
 	return ((_Bool)error(3));
 }
 
-static _Bool	check(const char **args)
+_Bool	parser(const char **args)
 {
 	int	i;
 
@@ -54,20 +54,7 @@ static _Bool	check(const char **args)
 			return ((_Bool)error(0));
 		else if (characters(args[i]))
 			return (true);
-	}
-	return (false);
-}
-
-_Bool	parser(const char **args)
-{
-	int	i;
-
-	i = 0;
-	if (check(args))
-		return (true);
-	while(++i < 8)
-	{
-		if (ft_atol(args[i]) <= 0)
+		else if (ft_atol(args[i]) <= 0)
 			return ((_Bool)error(2));
 	}
 	return (false);

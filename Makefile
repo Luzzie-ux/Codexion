@@ -6,7 +6,7 @@
 #    By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/24 11:03:24 by rodrpere          #+#    #+#              #
-#    Updated: 2026/10/01 20:54:33 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/10/02 19:59:19 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,11 @@ INCS=-Iincs
 # Files:
 MAIN=main
 ENV=srcs/env
-RUNTIME=srcs/runtime
 UTILS=srcs/utils
 
 BUILD=build
-SRCS=$(UTILS)/errors.c $(UTILS)/memory.c $(UTILS)/strings.c \
+SRCS=$(UTILS)/errors.c $(UTILS)/strings.c $(UTILS)/parser.c \
 	 $(ENV)/coder.c $(ENV)/dongle.c $(ENV)/table.c \
-	 $(RUNTIME)/parser.c $(RUNTIME)/scheduler.c $(RUNTIME)/simulation.c \
 	 $(MAIN).c
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 

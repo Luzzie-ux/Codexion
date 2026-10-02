@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 15:13:21 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/02 00:32:53 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/02 20:03:33 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ typedef struct s_table
 	uint64_t	rounds;
 	uint64_t	cooldown;
 	t_schedule	schedule;
-	uint64_t	*order;
 }				t_table;
 
 //Constructors:
 t_dongle	*dongle(size_t size);
 t_coder		*coder(size_t size);
-t_table		*reservation(t_table *table, const char **argv);
+void		reservation(t_table *table, const char **argv);
+void		*constructors(t_table *table);
 
 #endif
