@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/28 14:50:58 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/28 14:59:18 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ t_config	config(const int size, const char **args)
 		return ((t_config){0});
 	while(i < size)
 	{
-		if (i == 7)
+		if (i != 7)
+			cfg.values[i] = atoi(args[i]);
+		else
 			cfg.schedule = sched(args[i]);
-		cfg.values[i] = atoi(args[i]);
 		i++;
 	}
 	if (cfg.schedule == INVALID)
@@ -97,10 +98,10 @@ int main(int argc, char **argv){
 	
 	if (argc < 2)
 	{
-		fprintf(stderr, "Usage: %s <arguments>\n", argv[0]);
+		fprintf(stderr, "Usage: %s <arguments>\n",argv[0]);
 		return (0);
 	}
-	cfg = config(argc-1, argv+1);
+	cfg = config(argc-1, (const char **)argv+1);
 	if (!cfg.values || cfg.schedule == INVALID)
 		return (1);
 	return (cfg.values = NULL, 0);
