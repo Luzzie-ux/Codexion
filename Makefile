@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rodrpere <rodrpere@42.student.porto.c      +#+  +:+       +#+         #
+#    By: marcunix <marcunix@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/24 11:03:24 by rodrpere          #+#    #+#              #
-#    Updated: 2026/10/02 19:59:19 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/10/28 12:09:52 by marcunix         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,16 @@ CFLAGS= -Wall -Wextra -Werror -pthread
 INCS=-Iincs
 
 # Files:
-MAIN=main
-ENV=srcs/env
-UTILS=srcs/utils
-
 BUILD=build
-SRCS=$(UTILS)/errors.c $(UTILS)/strings.c $(UTILS)/parser.c \
-	 $(ENV)/coder.c $(ENV)/dongle.c $(ENV)/table.c \
-	 $(MAIN).c
+CTORS=srcs/ctor/signal.c \
+	srcs/ctor/config.c \
+	srcs/ctor/dongle.c \
+	srcs/ctor/coder.c \
+	srcs/ctor/table.c \
+	srcs/ctor/waiter.c
+MAIN=srcs/main.c
+
+SRCS=$(CTORS), $(MAIN)
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 
 # Rules:
