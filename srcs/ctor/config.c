@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/28 14:59:18 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/29 13:38:15 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,4 @@ t_config	config(const int size, const char **args)
 	if (!assign(&cfg, i))
 		return (free(cfg.values), cfg.values = NULL, (t_config){0});
 	return(free(cfg.values), cfg);
-}
-
-int main(int argc, char **argv){
-	t_config cfg;
-	
-	if (argc < 2)
-	{
-		fprintf(stderr, "Usage: %s <arguments>\n",argv[0]);
-		return (0);
-	}
-	cfg = config(argc-1, (const char **)argv+1);
-	if (!cfg.values || cfg.schedule == INVALID)
-		return (1);
-	return (cfg.values = NULL, 0);
 }

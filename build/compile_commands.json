@@ -9,11 +9,11 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/utils/errors.c",
+   "srcs/main.c",
    "-o",
-   "build/srcs/utils/errors.o"
+   "build/srcs/main.o"
   ],
-  "file": "srcs/utils/errors.c"
+  "file": "srcs/main.c"
  },
  {
   "directory": "/home/rodrpere/Codexion",
@@ -25,11 +25,11 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/utils/memory.c",
+   "srcs/ctor/signal.c",
    "-o",
-   "build/srcs/utils/memory.o"
+   "build/srcs/ctor/signal.o"
   ],
-  "file": "srcs/utils/memory.c"
+  "file": "srcs/ctor/signal.c"
  },
  {
   "directory": "/home/rodrpere/Codexion",
@@ -41,11 +41,11 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/utils/strings.c",
+   "srcs/ctor/config.c",
    "-o",
-   "build/srcs/utils/strings.o"
+   "build/srcs/ctor/config.o"
   ],
-  "file": "srcs/utils/strings.c"
+  "file": "srcs/ctor/config.c"
  },
  {
   "directory": "/home/rodrpere/Codexion",
@@ -57,11 +57,11 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "main.c",
+   "srcs/ctor/dongle.c",
    "-o",
-   "build/main.o"
+   "build/srcs/ctor/dongle.o"
   ],
-  "file": "main.c"
+  "file": "srcs/ctor/dongle.c"
  },
  {
   "directory": "/home/rodrpere/Codexion",
@@ -73,11 +73,11 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/runtime/parser.c",
+   "srcs/ctor/coder.c",
    "-o",
-   "build/srcs/runtime/parser.o"
+   "build/srcs/ctor/coder.o"
   ],
-  "file": "srcs/runtime/parser.c"
+  "file": "srcs/ctor/coder.c"
  },
  {
   "directory": "/home/rodrpere/Codexion",
@@ -89,11 +89,11 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/env/table.c",
+   "srcs/ctor/table.c",
    "-o",
-   "build/srcs/env/table.o"
+   "build/srcs/ctor/table.o"
   ],
-  "file": "srcs/env/table.c"
+  "file": "srcs/ctor/table.c"
  },
  {
   "directory": "/home/rodrpere/Codexion",
@@ -105,10 +105,10 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/scheduler/scheduler.c",
+   "srcs/ctor/waiter.c",
    "-o",
-   "build/srcs/scheduler/scheduler.o"
+   "build/srcs/ctor/waiter.o"
   ],
-  "file": "srcs/scheduler/scheduler.c"
+  "file": "srcs/ctor/waiter.c"
  }
 ]

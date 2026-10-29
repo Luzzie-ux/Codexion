@@ -6,7 +6,7 @@
 #    By: marcunix <marcunix@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/24 11:03:24 by rodrpere          #+#    #+#              #
-#    Updated: 2026/10/28 12:09:52 by marcunix         ###   ########.fr        #
+#    Updated: 2026/10/29 13:44:49 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,14 @@ INCS=-Iincs
 
 # Files:
 BUILD=build
-CTORS=srcs/ctor/signal.c \
+
+SRCS=srcs/main.c \
+	srcs/ctor/signal.c \
 	srcs/ctor/config.c \
 	srcs/ctor/dongle.c \
 	srcs/ctor/coder.c \
 	srcs/ctor/table.c \
 	srcs/ctor/waiter.c
-MAIN=srcs/main.c
-
-SRCS=$(CTORS), $(MAIN)
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 
 # Rules:
@@ -42,7 +41,6 @@ $(BUILD)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
-	rm -rf $(BUILD)/$(MAIN).o
 	rm -rf $(BUILD)/srcs
 
 fclean: clean
@@ -53,6 +51,9 @@ re: banner fclean $(NAME)
 debug: CFLAGS += -g
 debug: re
 	@echo "[You can now run $(NAME) with GDB/Valgrind]"
+
+compdb:
+	compiledb -o build/compile_commands.json make re
 
 banner:
 	@echo " ▓▓▓   ▓▓▓  ▓▓▓▓  ▓▓▓▓▓ ▓   ▓ ▓▓▓  ▓▓▓  ▓   ▓   "
