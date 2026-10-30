@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/29 13:38:15 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/30 15:54:55 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,21 @@ static t_sched	sched(const char *str)
 	return (INVALID);
 }
 
-static void	*assign(t_config *cfg, int i)
+static void	assign(t_config *cfg, int i)
 {
-	bool	error;
 	int		j;
 	
 	j = 0;
-	error = false;
+	cfg->error = false;
 	while(j < i-1){
 		if (cfg->values[j] <= 0){
 			fprintf(stderr, "Error: Invalid value for argument nº%d\n", j+1);
-			error = true;
+			cfg->error = true;
 		}
 		j++;
 	}
-	if (error)
-		return (NULL);
+	if (cfg->error)
+		return ;
 	cfg->size = cfg->values[0];
 	cfg->deadline = cfg->values[1];
 	cfg->compile = cfg->values[2];
@@ -50,10 +49,9 @@ static void	*assign(t_config *cfg, int i)
 	cfg->refactor = cfg->values[4];
 	cfg->tasks = cfg->values[5];
 	cfg->cooldown = cfg->values[6];
-	return (cfg);
 }
 
-static void *ft_calloc(size_t count, size_t size)
+static void	*ft_calloc(size_t count, size_t size)
 {
 	void *ptr;
 
@@ -78,17 +76,15 @@ t_config	config(const int size, const char **args)
 	cfg.values = ft_calloc(size, sizeof(int));
 	if (!cfg.values)
 		return ((t_config){0});
-	while(i < size)
+	cfg.schedule = sched(args[size-1]);
+	while(i < size-1)
 	{
-		if (i != 7)
+		if (i != size-1)
 			cfg.values[i] = atoi(args[i]);
-		else
-			cfg.schedule = sched(args[i]);
 		i++;
 	}
-	if (cfg.schedule == INVALID)
-		return (free(cfg.values), cfg.values = NULL, (t_config){0});
-	if (!assign(&cfg, i))
-		return (free(cfg.values), cfg.values = NULL, (t_config){0});
-	return(free(cfg.values), cfg);
+	assign(&cfg, size);
+	if (cfg.error || cfg.schedule == INVALID)
+		return (free(cfg.values), cfg.values = NULL, cfg);
+	return(free(cfg.values), cfg.values = NULL, cfg);
 }

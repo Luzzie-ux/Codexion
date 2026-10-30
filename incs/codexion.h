@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/28 14:20:32 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/30 15:42:43 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_config
 	time_t		cooldown;
 	t_sched		schedule;
 	int			*values;
+	bool		error;
 }				t_config;
 
 // STACK
