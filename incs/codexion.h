@@ -6,14 +6,14 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/30 15:42:43 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/30 16:45:27 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
 
-# include <bits/pthreadtypes.h>
+# include <pthread.h>
 # include <time.h>
 # include <stdbool.h>
 
@@ -109,11 +109,11 @@ typedef struct s_waiter
 }				t_waiter;
 
 // Constructors:
-t_signal	signal(int id, t_signal_type type);
-t_config	config(const int ac, const char **av);
-t_dongle	dongle(int id);
-t_coder		coder(int id);
-t_table		table(t_config config);
-t_waiter	waiter(t_config config);
+t_signal	new_signal(int id, t_signal_type type);
+t_config	new_config(const int ac, const char **av);
+t_dongle	new_dongle(int id);
+t_coder		new_coder(int id);
+t_table		new_table(t_config config);
+t_waiter	new_waiter(t_config config);
 
 #endif

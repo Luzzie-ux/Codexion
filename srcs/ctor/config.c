@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/30 16:40:14 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/30 16:44:45 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ static void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-t_config	config(const int size, const char **args)
+t_config	new_config(const int size, const char **args)
 {
 	int			i;
 	t_config	cfg;
 
 	i = 0;
-	cfg.schedule = INVALID;
+	cfg = (t_config){0};
 	if (size != 8)
 	{
 		fprintf(stderr, "Error: expected 8 args, got %d\n", size);
@@ -84,5 +84,7 @@ t_config	config(const int size, const char **args)
 		cfg.values[i-1] = atoi(args[i-1]);
 	assign(&cfg, size-1);
 	cfg.schedule = sched(args[size-1]);
+	if (cfg.schedule == INVALID)
+		cfg.error = true;
 	return(free(cfg.values), cfg.values = NULL, cfg);
 }
