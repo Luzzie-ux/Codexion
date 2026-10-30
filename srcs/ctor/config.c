@@ -6,15 +6,11 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/30 16:44:45 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/30 18:34:03 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <stdbool.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 static t_sched	sched(const char *str)
 {
