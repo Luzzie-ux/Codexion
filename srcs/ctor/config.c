@@ -6,11 +6,12 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/30 15:54:55 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/10/30 16:40:14 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,18 +28,20 @@ static t_sched	sched(const char *str)
 	return (INVALID);
 }
 
-static void	assign(t_config *cfg, int i)
+static void	assign(t_config *cfg, int count)
 {
-	int		j;
+	int		i;
 	
-	j = 0;
+	i = 0;
 	cfg->error = false;
-	while(j < i-1){
-		if (cfg->values[j] <= 0){
-			fprintf(stderr, "Error: Invalid value for argument nº%d\n", j+1);
+	while(i < count)
+	{
+		if (cfg->values[i] <= 0)
+		{
+			fprintf(stderr, "Error: Invalid value for argument nº%d\n", i+1);
 			cfg->error = true;
 		}
-		j++;
+		i++;
 	}
 	if (cfg->error)
 		return ;
@@ -69,22 +72,17 @@ t_config	config(const int size, const char **args)
 
 	i = 0;
 	cfg.schedule = INVALID;
-	if (size != 8){
-		fprintf(stderr, "Error: expected 8 args, got %d\n", size);
-		return ((t_config){0});
-	}
-	cfg.values = ft_calloc(size, sizeof(int));
-	if (!cfg.values)
-		return ((t_config){0});
-	cfg.schedule = sched(args[size-1]);
-	while(i < size-1)
+	if (size != 8)
 	{
-		if (i != size-1)
-			cfg.values[i] = atoi(args[i]);
-		i++;
+		fprintf(stderr, "Error: expected 8 args, got %d\n", size);
+		return (cfg.error = true, cfg);
 	}
-	assign(&cfg, size);
-	if (cfg.error || cfg.schedule == INVALID)
-		return (free(cfg.values), cfg.values = NULL, cfg);
+	cfg.values = ft_calloc(size-1, sizeof(int));
+	if (!cfg.values)
+		return (cfg.error = true, cfg);
+	while(i++ < size-1)
+		cfg.values[i-1] = atoi(args[i-1]);
+	assign(&cfg, size-1);
+	cfg.schedule = sched(args[size-1]);
 	return(free(cfg.values), cfg.values = NULL, cfg);
 }
