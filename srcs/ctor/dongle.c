@@ -28,8 +28,8 @@ t_dongle	new_dongle(int id, time_t cooldown)
 
 t_dongle	*new_dongle_arr(int size, time_t cooldown)
 {
-	int	i;
-	t_dongle *dongles;
+	int			i;
+	t_dongle	*dongles;
 
 	i = 0;
 	dongles = malloc(sizeof(t_dongle) * size);
