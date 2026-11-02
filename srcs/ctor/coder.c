@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:24 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/02 15:22:54 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/02 17:35:24 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ t_coder	new_coder(int id, time_t deadline)
 	return (coder);
 }
 
-t_coder	*new_coder_arr(t_coder *coders, time_t burnout, int size)
+t_coder	*new_coder_arr(int size, time_t burnout)
 {
 	int	i;
+	t_coder *coders;
 
 	i = 0;
 	coders = malloc(sizeof(t_coder) * size);
@@ -41,7 +42,6 @@ t_coder	*new_coder_arr(t_coder *coders, time_t burnout, int size)
 	{
 		coders[i] = new_coder(i + 1, burnout);
 		pthread_mutex_init(&coders[i].mutex, NULL);
-		pthread_cond_init(&coders[i].cond, NULL);
 		i++;
 	}
 	return (coders);
@@ -52,7 +52,6 @@ void	del_coder(t_coder *coder)
 	if (!coder)
 		return ;
 	pthread_mutex_destroy(&coder->mutex);
-	pthread_cond_destroy(&coder->cond);
 }
 
 void	del_coder_arr(t_coder *coders, int size)

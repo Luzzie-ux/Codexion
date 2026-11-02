@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:50 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/02 15:22:32 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/02 17:28:53 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ t_dongle	new_dongle(int id, time_t cooldown)
 	return (dongle);
 }
 
-t_dongle	*new_dongle_arr(t_dongle *dongles, time_t cooldown, int size)
+t_dongle	*new_dongle_arr(int size, time_t cooldown)
 {
 	int	i;
+	t_dongle *dongles;
 
 	i = 0;
 	dongles = malloc(sizeof(t_dongle) * size);

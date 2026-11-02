@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/02 15:27:34 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/02 17:36:30 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_coder
 	t_dongle			*left;
 	t_thread			tid;
 	t_mutex				mutex;
-	t_cond				cond;
 	long				last;
 	time_t				deadline;
 	t_action			state;
@@ -93,17 +92,15 @@ typedef struct s_table
 	t_coder				*coders;
 	t_dongle			*dongles;
 	t_thread			monitor;
-	t_thread			log;
+	t_mutex				log_mutex;
 }						t_table;
 
 // Constructors:
 t_config				new_config(const int ac, const char **av);
 t_dongle				new_dongle(int id, time_t cooldown);
-t_dongle				*new_dongle_arr(t_dongle *dongles, time_t cooldown,
-							int size);
+t_dongle				*new_dongle_arr(int size, time_t cooldown);
 t_coder					new_coder(int id, time_t deadline);
-t_coder					*new_coder_arr(t_coder *coders, time_t burnout,
-							int size);
+t_coder					*new_coder_arr(int size, time_t cooldown);
 t_table					*new_table(t_config *config);
 
 // Destructors:
