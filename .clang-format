@@ -26,10 +26,6 @@ NamespaceIndentation: All
 AccessModifierOffset: -4
 
 AlignConsecutiveAssignments: None
-AlignConsecutiveDeclarations:
-  Enable: true
-  AlignFunctionDeclarations: true
-  AlignFunctionPointers: true
 AlignTrailingComments: false
 AlignAfterOpenBracket: true
 ReflowComments: false

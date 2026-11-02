@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/10/30 18:34:03 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/02 11:40:52 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_sched	sched(const char *str)
 static void	assign(t_config *cfg, int count)
 {
 	int		i;
-	
+
 	i = 0;
 	cfg->error = false;
 	while(i < count)
