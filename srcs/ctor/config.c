@@ -6,11 +6,14 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/02 11:40:52 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:23:22 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 static t_sched	sched(const char *str)
 {
@@ -26,15 +29,15 @@ static t_sched	sched(const char *str)
 
 static void	assign(t_config *cfg, int count)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	cfg->error = false;
-	while(i < count)
+	while (i < count)
 	{
 		if (cfg->values[i] <= 0)
 		{
-			fprintf(stderr, "Error: Invalid value for argument nº%d\n", i+1);
+			fprintf(stderr, "Error: Invalid value for argument nº%d\n", i + 1);
 			cfg->error = true;
 		}
 		i++;
@@ -52,7 +55,7 @@ static void	assign(t_config *cfg, int count)
 
 static void	*ft_calloc(size_t count, size_t size)
 {
-	void *ptr;
+	void	*ptr;
 
 	ptr = malloc(count * size);
 	if (!ptr)
@@ -73,14 +76,14 @@ t_config	new_config(const int size, const char **args)
 		fprintf(stderr, "Error: expected 8 args, got %d\n", size);
 		return (cfg.error = true, cfg);
 	}
-	cfg.values = ft_calloc(size-1, sizeof(int));
+	cfg.values = ft_calloc(size - 1, sizeof(int));
 	if (!cfg.values)
 		return (cfg.error = true, cfg);
-	while(i++ < size-1)
-		cfg.values[i-1] = atoi(args[i-1]);
-	assign(&cfg, size-1);
-	cfg.schedule = sched(args[size-1]);
+	while (i++ < size - 1)
+		cfg.values[i - 1] = atoi(args[i - 1]);
+	assign(&cfg, size - 1);
+	cfg.schedule = sched(args[size - 1]);
 	if (cfg.schedule == INVALID)
 		cfg.error = true;
-	return(free(cfg.values), cfg.values = NULL, cfg);
+	return (free(cfg.values), cfg.values = NULL, cfg);
 }

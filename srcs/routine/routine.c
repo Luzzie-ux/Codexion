@@ -1,30 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   waiter.c                                           :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/02 11:39:56 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/02 11:39:59 by rodrpere         ###   ########.fr       */
+/*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
+/*   Updated: 2026/11/02 12:12:59 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
-t_waiter	new_waiter(t_config config)
-{
-	int			i;
-	t_waiter	waiter;
-
-	i = 0;
-	waiter = (t_waiter){0};
-	waiter.config = config;
-	waiter.dongles = malloc(sizeof(t_dongle)*config.size);
-	if (!waiter.dongles)
-		return (waiter.config.error = true, waiter);
-	while(i++ < config.size)
-		waiter.dongles[i-1] = new_dongle(i, config.cooldown);
-	waiter.requests = NULL;
-	return (waiter);
-}
