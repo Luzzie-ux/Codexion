@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/02 17:26:59 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/03 12:04:59 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	codexion_main(t_config *config)
 	if (!table)
 		return (1);
 	routine(table);
+	printf("YAY\n");
 	return (del_table(table), 0);
 }
 
