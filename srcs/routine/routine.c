@@ -15,9 +15,9 @@
 
 void	*simulation(t_table *table)
 {
-	int i;
-	int j;
-	t_coder *coders;
+	int		i;
+	int		j;
+	t_coder	*coders;
 
 	i = 0;
 	j = 0;
@@ -30,20 +30,20 @@ void	*simulation(t_table *table)
 		if (pthread_create(&coders[i].tid, NULL, routine, &coders[i]))
 		{
 			stop_all(table);
-			break;
+			break ;
 		}
 		i++;
 	}
-	while(j < i)
+	while (j < i)
 		pthread_join(table->coders[i++].tid, NULL);
 	pthread_join(table->monitor, NULL);
 	return (table);
 }
 
-bool usimulation(t_table *t)
+bool	usimulation(t_table *t)
 {
-	int			i;
-	int			j;
+	int	i;
+	int	j;
 
 	if (pthread_create(&t->monitor, NULL, monitoring, t))
 		return (false);
@@ -54,8 +54,7 @@ bool usimulation(t_table *t)
 	j = -1;
 	while (++j < t->config.size)
 	{
-		if (pthread_create(&t->coders[j].tid, NULL, routine,
-				&t->coders[j]))
+		if (pthread_create(&t->coders[j].tid, NULL, routine, &t->coders[j]))
 		{
 			stop_all(t);
 			break ;

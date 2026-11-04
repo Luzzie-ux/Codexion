@@ -12,8 +12,8 @@
 
 #include "codexion.h"
 #include <pthread.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 t_coder	new_coder(int id, time_t deadline)
 {
@@ -69,7 +69,7 @@ void	del_coder_arr(t_coder *coders, int size)
 	return ;
 }
 
-void get_dongle(t_coder *c)
+void	get_dongle(t_coder *c)
 {
 	long	time;
 

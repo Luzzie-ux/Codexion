@@ -142,8 +142,7 @@ void						del_request(t_request *request);
 // Time:
 long						to_ms(struct timespec *ts);
 long						now_ms(void);
-void precise_sleep(t_table *table, long to_wait);
-
+void						precise_sleep(t_table *table, long to_wait);
 
 // Routine:
 void						*simulation(t_table *table);
@@ -154,8 +153,7 @@ void						*refactoring(t_coder *coder);
 
 // Util:
 void						*ft_calloc(size_t count, size_t size);
-void get_dongle(t_coder *c);
-void log_action(t_coder *c);
-
+void						get_dongle(t_coder *c);
+void						log_action(t_coder *c);
 
 #endif

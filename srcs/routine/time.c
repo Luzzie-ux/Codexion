@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <pthread.h>
+#include <stdio.h>
 #include <time.h>
 #include <unistd.h>
-#include <stdio.h>
-#include <pthread.h>
 
 long	now_ms(void)
 {
@@ -24,7 +24,7 @@ long	now_ms(void)
 	return ((long)ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
 }
 
-void precise_sleep(t_table *table, long to_wait)
+void	precise_sleep(t_table *table, long to_wait)
 {
 	struct timespec	ts;
 	long			deadline;
@@ -38,9 +38,9 @@ void precise_sleep(t_table *table, long to_wait)
 	pthread_mutex_unlock(&table->stop_mutex);
 }
 
-void log_action(t_coder *c)
+void	log_action(t_coder *c)
 {
-	t_table *t;
+	t_table	*t;
 	long	time;
 	char	*str;
 
