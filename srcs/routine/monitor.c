@@ -14,14 +14,14 @@
 #include <pthread.h>
 #include <stdio.h>
 
-static inline void protect_log(t_table *t, long current_tm, t_coder *coder)
+static inline void	protect_log(t_table *t, long current_tm, t_coder *coder)
 {
 	pthread_mutex_lock(&t->log_mutex);
 	printf("%ld %d burned out\n", current_tm - t->start, coder->uid);
 	pthread_mutex_unlock(&t->log_mutex);
 }
 
-long get_last(t_coder *coder)
+long	get_last(t_coder *coder)
 {
 	long	time;
 
@@ -41,15 +41,16 @@ bool	get_is_over(t_table *t)
 	return (is_over);
 }
 
-void stop_all(t_table *t)
+void	stop_all(t_table *t)
 {
-	int i = 0;
-	t_coder *coder;
+	int		i;
+	t_coder	*coder;
 
+	i = 0;
 	pthread_mutex_lock(&t->stop_mutex);
 	t->over = true;
 	pthread_mutex_unlock(&t->stop_mutex);
-	while(i < t->config.size)
+	while (i < t->config.size)
 	{
 		coder = &t->coders[i];
 		pthread_mutex_lock(&coder->mutex);
@@ -59,18 +60,18 @@ void stop_all(t_table *t)
 	}
 }
 
-void *monitoring(void *arg)
+void	*monitoring(void *arg)
 {
-	int i;
-	long current_tm;
-	t_table *t;
+	int		i;
+	long	current_tm;
+	t_table	*t;
 
-	t = (t_table*)arg;
-	while(get_is_over(t))
+	t = (t_table *)arg;
+	while (get_is_over(t))
 	{
 		i = -1;
 		current_tm = now_ms();
-		while(++i < t->config.size)
+		while (++i < t->config.size)
 		{
 			if ((current_tm - get_last(&t->coders[i])) > t->config.deadline)
 				return (protect_log(t, current_tm, &t->coders[i]), NULL);

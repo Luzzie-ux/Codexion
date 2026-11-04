@@ -6,7 +6,7 @@
 #    By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/02 17:37:18 by rodrpere          #+#    #+#              #
-#    Updated: 2026/11/04 15:43:03 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/11/04 20:02:49 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS=srcs/main.c \
 	srcs/ctor/coder.c \
 	srcs/ctor/table.c \
 	srcs/routine/routine.c \
+	srcs/routine/monitor.c \
 	srcs/routine/time.c
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 
