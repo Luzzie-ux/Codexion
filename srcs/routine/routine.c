@@ -6,65 +6,39 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 19:29:25 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 19:59:22 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
 
-void	*simulation(t_table *table)
-{
-	int		i;
-	int		j;
-	t_coder	*coders;
-
-	i = 0;
-	j = 0;
-	coders = table->coders;
-	if (pthread_create(table->monitor, NULL, monitoring, table))
-		return (NULL);
-	while (i < table->config.size)
-	{
-		coders[i].last = table->start;
-		if (pthread_create(&coders[i].tid, NULL, routine, &coders[i]))
-		{
-			stop_all(table);
-			break ;
-		}
-		i++;
-	}
-	while (j < i)
-		pthread_join(table->coders[i++].tid, NULL);
-	pthread_join(table->monitor, NULL);
-	return (table);
-}
-
-bool	usimulation(t_table *t)
+bool	simulation(t_table *t)
 {
 	int	i;
-	int	j;
-
-	if (pthread_create(&t->monitor, NULL, monitoring, t))
-		return (false);
-	t->start = now_ms();
+	int	created;
+	
 	i = 0;
+	t->start = now_ms();
 	while (i < t->config.size)
 		t->coders[i++].last = t->start;
-	j = -1;
-	while (++j < t->config.size)
+	created = 0;
+	if (pthread_create(&t->monitor, NULL, monitoring, t))
+		return (false);
+	while (created < t->config.size)
 	{
-		if (pthread_create(&t->coders[j].tid, NULL, routine, &t->coders[j]))
+		if (pthread_create(&t->coders[created].tid, NULL, routine, &t->coders[created]))
 		{
 			stop_all(t);
 			break ;
 		}
+		created++;
 	}
 	i = 0;
-	while (i < j)
+	while (i < created)
 		pthread_join(t->coders[i++].tid, NULL);
 	pthread_join(t->monitor, NULL);
-	return (j == t->config.size);
+	return (created == t->config.size);
 }
 
 void	*routine(void *arg)

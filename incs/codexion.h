@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 19:21:20 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 20:00:30 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ long						now_ms(void);
 void						precise_sleep(t_table *table, long to_wait);
 
 // Routine:
-void						*simulation(t_table *table);
+bool simulation(t_table *table);
 void						*routine(void *arg);
 void						*compiling(t_coder *coder);
 void						*debuging(t_coder *coder);
@@ -155,5 +155,10 @@ void						*refactoring(t_coder *coder);
 void						*ft_calloc(size_t count, size_t size);
 void						get_dongle(t_coder *c);
 void						log_action(t_coder *c);
+long get_last(t_coder *coder);
+bool	get_is_over(t_table *t);
+void stop_all(t_table *t);
+void *monitoring(void *arg);
 
-#endif
+
+#endif /*CODEXION_H*/

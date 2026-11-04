@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:00:56 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 18:21:44 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 19:47:30 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static inline void protect_log(t_table *t, long current_tm, t_coder *coder)
 	pthread_mutex_unlock(&t->log_mutex);
 }
 
-static inline long get_last(t_coder *coder)
+long get_last(t_coder *coder)
 {
 	long	time;
 
@@ -31,7 +31,7 @@ static inline long get_last(t_coder *coder)
 	return (time);
 }
 
-static inline bool	get_is_over(t_table *t)
+bool	get_is_over(t_table *t)
 {
 	bool	is_over;
 
@@ -41,7 +41,7 @@ static inline bool	get_is_over(t_table *t)
 	return (is_over);
 }
 
-static inline void stop_all(t_table *t)
+void stop_all(t_table *t)
 {
 	int i = 0;
 	t_coder *coder;
@@ -76,5 +76,6 @@ void *monitoring(void *arg)
 				return (protect_log(t, current_tm, &t->coders[i]), NULL);
 		}
 	}
+	stop_all(t);
 	return (t);
 }
