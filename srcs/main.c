@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 15:55:54 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 18:56:37 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	codexion_main(t_config *config)
 	table = new_table(config);
 	if (!table)
 		return (1);
-	simulation(table);
+	if (!simulation(table))
+		return (del_table(table), 1);
 	printf("YAY\n");
 	return (del_table(table), 0);
 }

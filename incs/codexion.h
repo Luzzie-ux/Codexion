@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 16:03:38 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 19:21:20 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_coder
 	t_dongle				*left;
 	t_thread				tid;
 	t_mutex					mutex;
+	t_cond					cond;
 	time_t					deadline;
 	long					last;
 	long					compiles;
@@ -114,8 +115,10 @@ typedef struct s_table
 	t_thread				monitor;
 	t_mutex					log_mutex;
 	t_mutex					stop_mutex;
+	t_cond					stop_cond;
 	long					start;
-	bool					stop;
+	long					end;
+	bool					over;
 }							t_table;
 
 // Constructors:
@@ -137,9 +140,10 @@ void						del_dongle_arr(t_dongle *dongles, int size);
 void						del_request(t_request *request);
 
 // Time:
-long long					to_ms(struct timespec *ts);
-long long					now_ms(void);
-long long					precise_sleep(void);
+long						to_ms(struct timespec *ts);
+long						now_ms(void);
+void precise_sleep(t_table *table, long to_wait);
+
 
 // Routine:
 void						*simulation(t_table *table);
@@ -149,6 +153,9 @@ void						*debuging(t_coder *coder);
 void						*refactoring(t_coder *coder);
 
 // Util:
-void	*ft_calloc(size_t count, size_t size);
+void						*ft_calloc(size_t count, size_t size);
+void get_dongle(t_coder *c);
+void log_action(t_coder *c);
+
 
 #endif

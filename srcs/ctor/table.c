@@ -6,11 +6,12 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:39:43 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 16:09:01 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 19:14:51 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <pthread.h>
 #include <stdlib.h>
 
 static void	seat_coders(t_table *table)
@@ -37,6 +38,9 @@ t_table	*new_table(t_config *config)
 	table->config = *config;
 	table->coders = new_coder_arr(config->size, config->deadline);
 	table->dongles = new_dongle_arr(config->size, config->cooldown);
+	pthread_mutex_init(&table->log_mutex, NULL);
+	pthread_mutex_init(&table->stop_mutex, NULL);
+	pthread_cond_init(&table->stop_cond, NULL);
 	if (!table->coders || !table->dongles)
 		return (del_table(table), NULL);
 	seat_coders(table);
@@ -49,5 +53,8 @@ void	del_table(t_table *table)
 	table->coders = NULL;
 	del_dongle_arr(table->dongles, table->config.size);
 	table->dongles = NULL;
+	pthread_mutex_destroy(&table->log_mutex);
+	pthread_mutex_destroy(&table->stop_mutex);
+	pthread_cond_destroy(&table->stop_cond);
 	free(table);
 }

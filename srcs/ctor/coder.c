@@ -6,13 +6,14 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:24 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 16:04:49 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 19:04:22 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 t_coder	new_coder(int id, time_t deadline)
 {
@@ -41,6 +42,7 @@ t_coder	*new_coder_arr(int size, time_t deadline)
 	{
 		coders[i] = new_coder(i + 1, deadline);
 		pthread_mutex_init(&coders[i].mutex, NULL);
+		pthread_cond_init(&coders[i].cond, NULL);
 		i++;
 	}
 	return (coders);
@@ -51,6 +53,7 @@ void	del_coder(t_coder *coder)
 	if (!coder)
 		return ;
 	pthread_mutex_destroy(&coder->mutex);
+	pthread_cond_destroy(&coder->cond);
 }
 
 void	del_coder_arr(t_coder *coders, int size)
@@ -64,4 +67,12 @@ void	del_coder_arr(t_coder *coders, int size)
 		del_coder(&coders[i++]);
 	free(coders);
 	return ;
+}
+
+void get_dongle(t_coder *c)
+{
+	long	time;
+
+	time = now_ms() - c->table->start;
+	printf("[%ld] Coder %d has taken a dongle\n", time, c->uid);
 }
