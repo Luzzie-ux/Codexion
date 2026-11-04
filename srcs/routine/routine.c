@@ -17,7 +17,7 @@ bool	simulation(t_table *t)
 {
 	int	i;
 	int	created;
-	
+
 	i = 0;
 	t->start = now_ms();
 	while (i < t->config.size)
@@ -27,7 +27,8 @@ bool	simulation(t_table *t)
 		return (false);
 	while (created < t->config.size)
 	{
-		if (pthread_create(&t->coders[created].tid, NULL, routine, &t->coders[created]))
+		if (pthread_create(&t->coders[created].tid, NULL, routine,
+				&t->coders[created]))
 		{
 			stop_all(t);
 			break ;

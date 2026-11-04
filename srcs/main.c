@@ -20,7 +20,8 @@ static int	codexion_main(t_config *config)
 	table = new_table(config);
 	if (!table)
 		return (1);
-	if (!simulation(table)){
+	if (!simulation(table))
+	{
 		fprintf(stderr, "Error: something went wrong\n");
 		return (del_table(table), 1);
 	}

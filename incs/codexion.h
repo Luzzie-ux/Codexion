@@ -145,7 +145,7 @@ long						now_ms(void);
 void						precise_sleep(t_table *table, long to_wait);
 
 // Routine:
-bool simulation(t_table *table);
+bool						simulation(t_table *table);
 void						*routine(void *arg);
 void						*compiling(t_coder *coder);
 void						*debuging(t_coder *coder);
@@ -155,10 +155,9 @@ void						*refactoring(t_coder *coder);
 void						*ft_calloc(size_t count, size_t size);
 void						get_dongle(t_coder *c);
 void						log_action(t_coder *c);
-long get_last(t_coder *coder);
-bool	get_is_over(t_table *t);
-void stop_all(t_table *t);
-void *monitoring(void *arg);
-
+long						get_last(t_coder *coder);
+bool						get_is_over(t_table *t);
+void						stop_all(t_table *t);
+void						*monitoring(void *arg);
 
 #endif /*CODEXION_H*/
