@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:24 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/02 18:23:06 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 16:04:49 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_coder	new_coder(int id, time_t deadline)
 {
 	t_coder	coder;
 
-	coder = (t_coder){0};
 	coder.uid = id;
 	coder.left = NULL;
 	coder.right = NULL;
@@ -35,7 +34,7 @@ t_coder	*new_coder_arr(int size, time_t deadline)
 	t_coder	*coders;
 
 	i = 0;
-	coders = malloc(sizeof(t_coder) * size);
+	coders = ft_calloc(size, sizeof(t_coder));
 	if (!coders)
 		return (NULL);
 	while (i < size)

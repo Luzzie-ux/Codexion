@@ -6,11 +6,12 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/03 12:04:59 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 15:55:54 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stdio.h>
 
 static int	codexion_main(t_config *config)
 {
@@ -19,7 +20,7 @@ static int	codexion_main(t_config *config)
 	table = new_table(config);
 	if (!table)
 		return (1);
-	routine(table);
+	simulation(table);
 	printf("YAY\n");
 	return (del_table(table), 0);
 }

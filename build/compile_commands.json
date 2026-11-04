@@ -25,22 +25,6 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/ctor/signal.c",
-   "-o",
-   "build/srcs/ctor/signal.o"
-  ],
-  "file": "srcs/ctor/signal.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
    "srcs/ctor/config.c",
    "-o",
    "build/srcs/ctor/config.o"
@@ -105,10 +89,42 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/ctor/waiter.c",
+   "srcs/ctor/request.c",
    "-o",
-   "build/srcs/ctor/waiter.o"
+   "build/srcs/ctor/request.o"
   ],
-  "file": "srcs/ctor/waiter.c"
+  "file": "srcs/ctor/request.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/routine/routine.c",
+   "-o",
+   "build/srcs/routine/routine.o"
+  ],
+  "file": "srcs/routine/routine.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/routine/time.c",
+   "-o",
+   "build/srcs/routine/time.o"
+  ],
+  "file": "srcs/routine/time.c"
  }
 ]

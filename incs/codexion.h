@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/03 15:35:42 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 16:03:38 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <time.h>
+# include <unistd.h>
 
 typedef struct s_request	t_request;
 typedef struct s_config		t_config;
@@ -119,6 +120,8 @@ typedef struct s_table
 
 // Constructors:
 t_config					new_config(const int ac, const char **av);
+t_request					new_request(void);
+t_request					*new_request_arr(int size);
 t_dongle					new_dongle(int id, time_t cooldown);
 t_dongle					*new_dongle_arr(int size, time_t cooldown);
 t_coder						new_coder(int id, time_t deadline);
@@ -131,17 +134,21 @@ void						del_coder(t_coder *coder);
 void						del_coder_arr(t_coder *coders, int size);
 void						del_dongle(t_dongle *dongle);
 void						del_dongle_arr(t_dongle *dongles, int size);
+void						del_request(t_request *request);
 
 // Time:
-long						to_ms(void);
-long						now_ms(void);
-long						precise_sleep(void);
+long long					to_ms(struct timespec *ts);
+long long					now_ms(void);
+long long					precise_sleep(void);
 
 // Routine:
-void						*routine(t_table *table);
-void						*simulation(void *arg);
+void						*simulation(t_table *table);
+void						*routine(void *arg);
 void						*compiling(t_coder *coder);
-void						debuging(t_coder *coder);
-void						refactoring(t_coder *coder);
+void						*debuging(t_coder *coder);
+void						*refactoring(t_coder *coder);
+
+// Util:
+void	*ft_calloc(size_t count, size_t size);
 
 #endif

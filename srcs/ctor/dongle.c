@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:50 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/02 17:28:53 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 16:05:30 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,19 @@ t_dongle	*new_dongle_arr(int size, time_t cooldown)
 {
 	int			i;
 	t_dongle	*dongles;
+	t_request	*requests;
 
 	i = 0;
-	dongles = malloc(sizeof(t_dongle) * size);
+	dongles = ft_calloc(size, sizeof(t_dongle));
 	if (!dongles)
 		return (NULL);
+	requests = new_request_arr(size);
+	if (!requests)
+		return (free(dongles), NULL);
 	while (i < size)
 	{
 		dongles[i] = new_dongle(i + 1, cooldown);
+		dongles[i].ticket = &requests[i];
 		pthread_mutex_init(&dongles[i].mutex, NULL);
 		pthread_cond_init(&dongles[i].cond, NULL);
 		i++;
@@ -62,6 +67,7 @@ void	del_dongle_arr(t_dongle *dongles, int size)
 		return ;
 	while (i < size)
 		del_dongle(&dongles[i++]);
+	del_request(dongles->ticket);
 	free(dongles);
 	return ;
 }
