@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 13:41:32 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 19:21:07 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/04 23:57:52 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdint.h>
 
 long	now_ms(void)
 {
 	struct timespec	ts;
 
 	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return ((long)ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+	return ((long)(ts.tv_sec * 1000) + (ts.tv_nsec / 1000000));
 }
 
 void	precise_sleep(t_table *table, long to_wait)

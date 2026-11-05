@@ -1,6 +1,6 @@
 [
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -16,7 +16,7 @@
   "file": "srcs/main.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -32,55 +32,7 @@
   "file": "srcs/ctor/config.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/ctor/dongle.c",
-   "-o",
-   "build/srcs/ctor/dongle.o"
-  ],
-  "file": "srcs/ctor/dongle.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/ctor/coder.c",
-   "-o",
-   "build/srcs/ctor/coder.o"
-  ],
-  "file": "srcs/ctor/coder.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/ctor/table.c",
-   "-o",
-   "build/srcs/ctor/table.o"
-  ],
-  "file": "srcs/ctor/table.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -96,7 +48,55 @@
   "file": "srcs/ctor/request.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/ctor/dongle.c",
+   "-o",
+   "build/srcs/ctor/dongle.o"
+  ],
+  "file": "srcs/ctor/dongle.c"
+ },
+ {
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/ctor/coder.c",
+   "-o",
+   "build/srcs/ctor/coder.o"
+  ],
+  "file": "srcs/ctor/coder.c"
+ },
+ {
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/ctor/table.c",
+   "-o",
+   "build/srcs/ctor/table.o"
+  ],
+  "file": "srcs/ctor/table.c"
+ },
+ {
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -112,7 +112,23 @@
   "file": "srcs/routine/routine.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/routine/monitor.c",
+   "-o",
+   "build/srcs/routine/monitor.o"
+  ],
+  "file": "srcs/routine/monitor.c"
+ },
+ {
+  "directory": "/home/luzzie/Computer_Science/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",

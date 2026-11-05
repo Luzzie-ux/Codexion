@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:24 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 19:04:22 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/05 00:33:43 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ t_coder	new_coder(int id, time_t deadline)
 {
 	t_coder	coder;
 
+	coder = (t_coder){0};
 	coder.uid = id;
 	coder.left = NULL;
 	coder.right = NULL;
 	coder.deadline = deadline;
 	coder.last = 0;
+	coder.compiles = 0;
 	coder.state = NONE;
 	coder.tid = (t_thread){0};
 	return (coder);

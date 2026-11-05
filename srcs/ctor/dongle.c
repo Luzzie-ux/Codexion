@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:50 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 16:05:30 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/05 00:36:30 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_dongle	new_dongle(int id, time_t cooldown)
 
 	dongle = (t_dongle){0};
 	dongle.uid = id;
-	dongle.free_when = -1;
+	dongle.free_when = 0;
 	dongle.is_taken = false;
 	dongle.cooldown = cooldown;
 	return (dongle);

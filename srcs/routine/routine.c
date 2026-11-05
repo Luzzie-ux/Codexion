@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 19:59:22 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/05 00:29:31 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,22 @@ bool	simulation(t_table *t)
 
 void	*routine(void *arg)
 {
+	long tasks;
 	t_coder	*coder;
 	t_table	*table;
 
 	coder = (t_coder *)arg;
+	pthread_mutex_lock(&coder->mutex);
 	table = coder->table;
-	(void)table;
-	compiling(coder);
-	debuging(coder);
-	refactoring(coder);
+	tasks = coder->compiles;
+	pthread_mutex_unlock(&coder->mutex);
+	while(tasks < table->config.tasks)
+	{
+		compiling(coder);
+		debuging(coder);
+		refactoring(coder);
+		tasks++;
+	}
 	return (arg);
 }
 
@@ -64,7 +71,9 @@ void	*compiling(t_coder *coder)
 	coder->last = now_ms();
 	log_action(coder);
 	precise_sleep(coder->table, coder->table->config.compile);
+	pthread_mutex_lock(&coder->mutex);
 	coder->compiles++;
+	pthread_mutex_unlock(&coder->mutex);
 	return (coder);
 }
 
