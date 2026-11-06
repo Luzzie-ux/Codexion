@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:39:43 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 19:14:51 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 16:30:13 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_table	*new_table(t_config *config)
 {
 	t_table	*table;
 
-	table = ft_calloc(config->size, sizeof(t_table));
+	table = ft_calloc(1, sizeof(t_table));
 	if (!table)
 		return (NULL);
 	table->config = *config;

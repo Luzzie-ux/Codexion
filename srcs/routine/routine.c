@@ -6,12 +6,13 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 09:59:47 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 18:36:01 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
+#include <time.h>
 #include <unistd.h>
 
 bool	simulation(t_table *t)
@@ -45,51 +46,40 @@ bool	simulation(t_table *t)
 
 void	*routine(void *arg)
 {
-	long	tasks;
 	t_coder	*coder;
 	t_table	*table;
 
 	coder = (t_coder *)arg;
-	pthread_mutex_lock(&coder->mutex);
 	table = coder->table;
-	tasks = coder->compiles;
-	pthread_mutex_unlock(&coder->mutex);
-	while (tasks < table->config.tasks)
+	while (get_is_over(table) != true)
 	{
 		compiling(coder);
-		debuging(coder);
-		refactoring(coder);
-		tasks++;
+		if (get_is_over(table) != true)
+			debuging(coder);
+		if (get_is_over(table) != true)
+			refactoring(coder);
 	}
 	return (arg);
 }
 
-void	*compiling(t_coder *coder)
+long	now_ms(void)
 {
-	coder->state = COMPILING;
-	get_dongle(coder);
-	get_dongle(coder);
-	coder->last = now_ms();
-	log_action(coder);
-	precise_sleep(coder->table, coder->table->config.compile * 1000);
-	pthread_mutex_lock(&coder->mutex);
-	coder->compiles++;
-	pthread_mutex_unlock(&coder->mutex);
-	return (coder);
+	struct timespec	ts;
+
+	clock_gettime(CLOCK_REALTIME, &ts);
+	return ((long)(ts.tv_sec * 1000) + (ts.tv_nsec / 1000000));
 }
 
-void	*debuging(t_coder *coder)
+void	precise_sleep(t_table *table, long to_wait)
 {
-	coder->state = DEBUGING;
-	log_action(coder);
-	precise_sleep(coder->table, coder->table->config.debug * 1000);
-	return (coder);
-}
+	struct timespec	ts;
+	long			deadline;
 
-void	*refactoring(t_coder *coder)
-{
-	coder->state = REFACTORING;
-	log_action(coder);
-	precise_sleep(coder->table, coder->table->config.refactor * 1000);
-	return (coder);
+	deadline = now_ms() + to_wait;
+	ts.tv_sec = deadline / 1000;
+	ts.tv_nsec = (deadline % 1000) * 1000000;
+	pthread_mutex_lock(&table->stop_mutex);
+	while (!table->over && now_ms() < deadline)
+		pthread_cond_timedwait(&table->stop_cond, &table->stop_mutex, &ts);
+	pthread_mutex_unlock(&table->stop_mutex);
 }

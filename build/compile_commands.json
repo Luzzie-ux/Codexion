@@ -142,5 +142,21 @@
    "build/srcs/routine/time.o"
   ],
   "file": "srcs/routine/time.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/strtol10/strtol10.c",
+   "-o",
+   "build/srcs/strtol10/strtol10.o"
+  ],
+  "file": "srcs/strtol10/strtol10.c"
  }
 ]

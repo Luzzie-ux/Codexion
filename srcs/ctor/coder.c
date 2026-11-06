@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:24 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 11:38:47 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 16:23:54 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,4 @@ void	del_coder_arr(t_coder *coders, long size)
 		del_coder(&coders[i++]);
 	free(coders);
 	return ;
-}
-
-void	get_dongle(t_coder *c)
-{
-	long	time;
-
-	time = now_ms() - c->table->start;
-	printf("[%ld] Coder %d has taken a dongle\n", time, c->uid);
 }

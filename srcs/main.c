@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 20:01:40 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 16:04:35 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	codexion_main(t_config *config)
 		fprintf(stderr, "Error: something went wrong\n");
 		return (del_table(table), 1);
 	}
-	printf("YAY\n");
 	return (del_table(table), 0);
 }
 

@@ -6,11 +6,12 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 15:18:36 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 11:41:08 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 16:31:05 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <pthread.h>
 #include <stdlib.h>
 
 t_request	*new_request_arr(long size)

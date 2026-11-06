@@ -6,78 +6,71 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:00:56 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 23:30:06 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 18:35:20 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
 #include <stdio.h>
+#include <unistd.h>
 
-static inline void	protect_log(t_table *t, long current_tm, t_coder *coder)
+static void	protect_log(t_table *t, long current_tm, t_coder *coder)
 {
 	pthread_mutex_lock(&t->log_mutex);
-	printf("%ld %d burned out\n", current_tm - t->start, coder->uid);
+	t->over = true;
+	printf("[%ld] Coder %d burned out\n", current_tm - t->start, coder->uid);
 	pthread_mutex_unlock(&t->log_mutex);
 }
 
-long	get_last(t_coder *coder)
-{
-	long	time;
-
-	pthread_mutex_lock(&coder->table->stop_mutex);
-	time = coder->last;
-	pthread_mutex_unlock(&coder->table->stop_mutex);
-	return (time);
-}
-
-bool	get_is_over(t_table *t)
-{
-	bool	is_over;
-
-	pthread_mutex_lock(&t->stop_mutex);
-	is_over = t->over;
-	pthread_mutex_unlock(&t->stop_mutex);
-	return (is_over);
-}
-
-void	stop_all(t_table *t)
+static bool	check_burnout(t_table *t)
 {
 	int		i;
-	t_coder	*coder;
+	t_coder	*coders;
+	long	time;
 
 	i = 0;
-	pthread_mutex_lock(&t->stop_mutex);
-	t->over = true;
-	pthread_cond_broadcast(&t->stop_cond);
-	pthread_mutex_unlock(&t->stop_mutex);
+	coders = t->coders;
+	time = now_ms();
 	while (i < t->config.size)
 	{
-		coder = &t->coders[i];
-		pthread_mutex_lock(&coder->mutex);
-		pthread_cond_broadcast(&coder->cond);
-		pthread_mutex_unlock(&coder->mutex);
+		if (time - get_last(&coders[i]) > t->config.deadline)
+			return (protect_log(t, time, &coders[i]), true);
 		i++;
 	}
+	return (false);
+}
+
+static bool	check_compiles(t_table *t)
+{
+	int		i;
+	long	compile_count;
+
+	i = 0;
+	while (i < t->config.size)
+	{
+		pthread_mutex_lock(&t->coders[i].mutex);
+		compile_count = t->coders[i].compiles;
+		pthread_mutex_unlock(&t->coders[i].mutex);
+		if (compile_count < t->config.tasks)
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 void	*monitoring(void *arg)
 {
-	int		i;
-	long	current_tm;
 	t_table	*t;
 
 	t = (t_table *)arg;
-	while (get_is_over(t))
+	while (get_is_over(t) != true)
 	{
-		i = -1;
-		current_tm = now_ms();
-		while (++i < t->config.size)
-		{
-			if ((current_tm - get_last(&t->coders[i])) > t->config.deadline)
-				return (protect_log(t, current_tm, &t->coders[i]), NULL);
-		}
+		if (check_burnout(t))
+			return (stop_all(t), NULL);
+		if (check_compiles(t))
+			return (stop_all(t), NULL);
+		usleep(1000);
 	}
-	stop_all(t);
-	return (t);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 11:38:23 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 18:18:40 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ typedef struct s_dongle
 	long					cooldown;
 	long					free_when;
 	long					next_sequence;
-	int						uid;
-	int						size;
-	int						cap;
+	long					uid;
+	long					request;
+	long					cap;
 	bool					is_taken;
 }							t_dongle;
 

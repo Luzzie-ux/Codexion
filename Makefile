@@ -6,7 +6,7 @@
 #    By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/02 17:37:18 by rodrpere          #+#    #+#              #
-#    Updated: 2026/11/06 11:43:39 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/11/06 18:21:24 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,22 @@ LINTER=norminette
 # Files:
 HEADER=codexion.h
 BUILD=build
-SRCS=srcs/main.c \
-	srcs/ctor/config.c \
-	srcs/ctor/request.c \
-	srcs/ctor/dongle.c \
-	srcs/ctor/coder.c \
-	srcs/ctor/table.c \
-	srcs/routine/routine.c \
-	srcs/routine/monitor.c \
-	srcs/routine/time.c \
-	srcs/strtol10/strtol10.c
+
+MAIN = srcs/main.c
+CTOR = srcs/ctor/coder.c \
+	   srcs/ctor/config.c \
+	   srcs/ctor/dongle.c \
+	   srcs/ctor/request.c \
+	   srcs/ctor/table.c
+METHODS = srcs/methods/coder.c \
+		  srcs/methods/dongle.c \
+		  srcs/methods/request.c \
+		  srcs/methods/table.c
+ROUTINE = srcs/routine/monitor.c \
+		  srcs/routine/routine.c \
+		  srcs/strtol10/strtol10.c
+
+SRCS = $(CTOR) $(METHODS) $(ROUTINE) $(MAIN)
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 
 # Rules:
