@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:50 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/05 00:36:30 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 11:41:26 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_dongle	new_dongle(int id, time_t cooldown)
 	return (dongle);
 }
 
-t_dongle	*new_dongle_arr(int size, time_t cooldown)
+t_dongle	*new_dongle_arr(long size, time_t cooldown)
 {
 	int			i;
 	t_dongle	*dongles;
@@ -58,7 +58,7 @@ void	del_dongle(t_dongle *dongle)
 	pthread_cond_destroy(&dongle->cond);
 }
 
-void	del_dongle_arr(t_dongle *dongles, int size)
+void	del_dongle_arr(t_dongle *dongles, long size)
 {
 	int	i;
 

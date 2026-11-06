@@ -6,42 +6,24 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/05 00:49:48 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/05 02:48:37 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 10:31:44 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 #include <stdbool.h>
 
-static inline bool	is_space(const unsigned char c);
-static inline bool	is_digit(const unsigned char c);
-static int			parse(const char *p);
-static bool			loop(unsigned long cutoff, const char *p, unsigned long *n);
-long				strtol10(const char *restrict nptr, char **restrict endptr);
-
-long	strtol10(const char *restrict nptr, char **restrict endptr)
+static inline bool	is_digit(const unsigned char c)
 {
-	const char		*p;
-	int				neg;
-	bool			overflow;
-	unsigned long	n;
-	unsigned long	cutoff;
-
-	p = nptr;
-	neg = parse(&*p);
-	if (neg)
-		cutoff = -(unsigned long)LONG_MIN;
-	else
-		cutoff = LONG_MAX;
-	overflow = loop(cutoff, &*p, &n);
-	if (endptr && overflow && neg == -1)
-		return (*endptr = (char *)p, LONG_MIN);
-	else if (endptr && overflow && neg == 1)
-		return (*endptr = (char *)nptr, LONG_MAX);
-	return (neg * (long)n);
+	return (c >= '0' && c <= '9');
 }
 
-static bool	loop(unsigned long cutoff, const char *p, unsigned long *n)
+static inline bool	is_space(const unsigned char c)
+{
+	return (c == ' ' || (c >= '\t' && c <= '\r'));
+}
+
+static bool	loop(unsigned long cutoff, const char **p, unsigned long *n)
 {
 	bool			overflow;
 	unsigned long	lim;
@@ -50,56 +32,63 @@ static bool	loop(unsigned long cutoff, const char *p, unsigned long *n)
 	lim = cutoff % 10;
 	cutoff /= 10;
 	*n = 0;
-	while (is_digit((unsigned char)*p))
+	while (is_digit((unsigned char)**p))
 	{
 		if (overflow)
 		{
-			p++;
+			(*p)++;
 			continue ;
 		}
-		if (*n > cutoff || (*n == cutoff && (unsigned char)(*p - '0') > lim))
+		if (*n > cutoff || (*n == cutoff && (unsigned char)(**p - '0') > lim))
 			overflow = true;
 		else
-		{
-			overflow = false;
-			*n = (*n * 10) + (*p - '0');
-		}
-		p++;
+			*n = (*n * 10) + (**p - '0');
+		(*p)++;
 	}
 	return (overflow);
 }
 
-static int	parse(const char *p)
+static int	parse(const char **p)
 {
 	int	neg;
 
 	neg = 1;
-	while (is_space((unsigned char)*p))
-		p++;
-	if (*p == '-')
+	while (is_space((unsigned char)**p))
+		(*p)++;
+	if (**p == '-')
 	{
 		neg = -1;
-		p++;
+		(*p)++;
 	}
-	else if (*p == '+')
-		p++;
+	else if (**p == '+')
+		(*p)++;
 	return (neg);
 }
 
-static inline bool	is_digit(const unsigned char c)
+long	strtol10(const char *restrict nptr, char **restrict endptr)
 {
-	return (c > '0' && c < '9');
-}
+	const char		*p;
+	const char		*digits;
+	int				neg;
+	bool			overflow;
+	unsigned long	n;
 
-static inline bool	is_space(const unsigned char c)
-{
-	return (c <= '\r' || c == ' ');
-}
-
-#include <stdio.h>
-int main(void){
-	
-	long n = strtol10("                 123456789", (void*)0);
-	printf("%ld\n", n);
-	return (0);
+	p = nptr;
+	neg = parse(&p);
+	digits = p;
+	if (neg == -1)
+		overflow = loop(-(unsigned long)LONG_MIN, &p, &n);
+	else
+		overflow = loop(LONG_MAX, &p, &n);
+	if (endptr && p == digits)
+		*endptr = (char *)nptr;
+	else if (endptr && p != digits)
+		*endptr = (char *)p;
+	if (overflow && neg == -1)
+		return (LONG_MIN);
+	else if (overflow && neg == 1)
+		return (LONG_MAX);
+	if (neg == -1)
+		return ((long)(0UL - n));
+	return ((long)n);
 }

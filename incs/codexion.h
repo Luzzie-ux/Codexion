@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 20:00:30 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 11:38:23 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,14 @@ typedef struct s_coder
 typedef struct s_config
 {
 	t_sched					schedule;
-	time_t					deadline;
-	time_t					cooldown;
+	long					deadline;
+	long					cooldown;
 	long					compile;
 	long					debug;
 	long					refactor;
-	int						tasks;
-	int						size;
-	int						*values;
+	long					tasks;
+	long					size;
+	long					*values;
 	bool					error;
 }							t_config;
 
@@ -124,19 +124,19 @@ typedef struct s_table
 // Constructors:
 t_config					new_config(const int ac, const char **av);
 t_request					new_request(void);
-t_request					*new_request_arr(int size);
+t_request					*new_request_arr(long size);
 t_dongle					new_dongle(int id, time_t cooldown);
-t_dongle					*new_dongle_arr(int size, time_t cooldown);
+t_dongle					*new_dongle_arr(long size, time_t cooldown);
 t_coder						new_coder(int id, time_t deadline);
-t_coder						*new_coder_arr(int size, time_t deadline);
+t_coder						*new_coder_arr(long size, time_t deadline);
 t_table						*new_table(t_config *config);
 
 // Destructors:
 void						del_table(t_table *table);
 void						del_coder(t_coder *coder);
-void						del_coder_arr(t_coder *coders, int size);
+void						del_coder_arr(t_coder *coders, long size);
 void						del_dongle(t_dongle *dongle);
-void						del_dongle_arr(t_dongle *dongles, int size);
+void						del_dongle_arr(t_dongle *dongles, long size);
 void						del_request(t_request *request);
 
 // Time:
@@ -159,5 +159,6 @@ long						get_last(t_coder *coder);
 bool						get_is_over(t_table *t);
 void						stop_all(t_table *t);
 void						*monitoring(void *arg);
+long						strtol10(const char *restrict nptr, char **endptr);
 
 #endif /*CODEXION_H*/

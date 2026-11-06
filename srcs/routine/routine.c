@@ -6,12 +6,13 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/05 00:29:31 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 09:59:47 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
+#include <unistd.h>
 
 bool	simulation(t_table *t)
 {
@@ -44,7 +45,7 @@ bool	simulation(t_table *t)
 
 void	*routine(void *arg)
 {
-	long tasks;
+	long	tasks;
 	t_coder	*coder;
 	t_table	*table;
 
@@ -53,7 +54,7 @@ void	*routine(void *arg)
 	table = coder->table;
 	tasks = coder->compiles;
 	pthread_mutex_unlock(&coder->mutex);
-	while(tasks < table->config.tasks)
+	while (tasks < table->config.tasks)
 	{
 		compiling(coder);
 		debuging(coder);
@@ -70,7 +71,7 @@ void	*compiling(t_coder *coder)
 	get_dongle(coder);
 	coder->last = now_ms();
 	log_action(coder);
-	precise_sleep(coder->table, coder->table->config.compile);
+	precise_sleep(coder->table, coder->table->config.compile * 1000);
 	pthread_mutex_lock(&coder->mutex);
 	coder->compiles++;
 	pthread_mutex_unlock(&coder->mutex);
@@ -81,7 +82,7 @@ void	*debuging(t_coder *coder)
 {
 	coder->state = DEBUGING;
 	log_action(coder);
-	precise_sleep(coder->table, coder->table->config.debug);
+	precise_sleep(coder->table, coder->table->config.debug * 1000);
 	return (coder);
 }
 
@@ -89,6 +90,6 @@ void	*refactoring(t_coder *coder)
 {
 	coder->state = REFACTORING;
 	log_action(coder);
-	precise_sleep(coder->table, coder->table->config.refactor);
+	precise_sleep(coder->table, coder->table->config.refactor * 1000);
 	return (coder);
 }

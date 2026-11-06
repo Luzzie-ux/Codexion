@@ -6,22 +6,23 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 16:02:03 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 11:40:45 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 static t_sched	sched(const char *str)
 {
-	if (!strcmp(str, "FIFO"))
+	if (!strcmp(str, "fifo"))
 		return (FIFO);
-	else if (!strcmp(str, "LIFO"))
+	else if (!strcmp(str, "lifo"))
 		return (LIFO);
-	else if (!strcmp(str, "EDF"))
+	else if (!strcmp(str, "edf"))
 		return (EDF);
 	fprintf(stderr, "Error: Invalid scheduling algorithm '%s'\n", str);
 	return (INVALID);
@@ -35,7 +36,7 @@ static void	assign(t_config *cfg, int count)
 	cfg->error = false;
 	while (i < count)
 	{
-		if (cfg->values[i] <= 0)
+		if (cfg->values[i] <= 0 || cfg->values[i] > INT_MAX)
 		{
 			fprintf(stderr, "Error: Invalid value for argument nº%d\n", i + 1);
 			cfg->error = true;
@@ -76,11 +77,11 @@ t_config	new_config(const int size, const char **args)
 		fprintf(stderr, "Error: expected 8 args, got %d\n", size);
 		return (cfg.error = true, cfg);
 	}
-	cfg.values = ft_calloc(size - 1, sizeof(int));
+	cfg.values = ft_calloc(size - 1, sizeof(long));
 	if (!cfg.values)
 		return (cfg.error = true, cfg);
 	while (i++ < size - 1)
-		cfg.values[i - 1] = atoi(args[i - 1]);
+		cfg.values[i - 1] = strtol10(args[i - 1], NULL);
 	assign(&cfg, size - 1);
 	cfg.schedule = sched(args[size - 1]);
 	if (cfg.schedule == INVALID)

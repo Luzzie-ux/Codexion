@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:24 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/05 00:33:43 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 11:38:47 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_coder	new_coder(int id, time_t deadline)
 	return (coder);
 }
 
-t_coder	*new_coder_arr(int size, time_t deadline)
+t_coder	*new_coder_arr(long size, time_t deadline)
 {
 	int		i;
 	t_coder	*coders;
@@ -58,7 +58,7 @@ void	del_coder(t_coder *coder)
 	pthread_cond_destroy(&coder->cond);
 }
 
-void	del_coder_arr(t_coder *coders, int size)
+void	del_coder_arr(t_coder *coders, long size)
 {
 	int	i;
 

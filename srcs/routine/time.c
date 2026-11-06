@@ -6,16 +6,16 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 13:41:32 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/04 23:57:52 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 09:50:24 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
-#include <stdint.h>
 
 long	now_ms(void)
 {
@@ -48,6 +48,7 @@ void	log_action(t_coder *c)
 	t = c->table;
 	pthread_mutex_lock(&t->log_mutex);
 	time = now_ms() - t->start;
+	str = "";
 	if (c->state == COMPILING)
 		str = "is compiling";
 	else if (c->state == DEBUGING)
