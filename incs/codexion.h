@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:10:39 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 23:18:30 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_table
 }							t_table;
 
 // Constructors:
-t_config					new_config(const int ac, const char **av);
+t_config					config_ctor(const int ac, const char **av);
 t_dongle					dongle_ctor(long id, t_request *req);
 t_dongle					*new_dongle(t_config *cfg);
 t_coder						coder_ctor(long id);

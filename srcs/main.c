@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:11:26 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 23:18:58 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (fprintf(stderr, "Usage: %s <arguments>\n", argv[0]));
-	cfg = new_config(argc - 1, (const char **)argv + 1);
+	cfg = config_ctor(argc - 1, (const char **)argv + 1);
 	if (cfg.error)
 		return (1);
 	return (codexion_main(&cfg));

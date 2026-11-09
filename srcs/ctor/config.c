@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 11:40:45 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 23:18:44 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-t_config	new_config(const int size, const char **args)
+t_config	config_ctor(const int size, const char **args)
 {
 	int			i;
 	t_config	cfg;
