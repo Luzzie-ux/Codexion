@@ -6,7 +6,7 @@
 #    By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/02 17:37:18 by rodrpere          #+#    #+#              #
-#    Updated: 2026/11/06 19:27:37 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/11/09 15:03:33 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,11 @@ METHODS = srcs/methods/coder.c \
 		  srcs/methods/request.c \
 		  srcs/methods/table.c
 ROUTINE = srcs/routine/monitor.c \
-		  srcs/routine/routine.c \
-		  srcs/strtol10/strtol10.c
+		  srcs/routine/routine.c
 
-SRCS = $(CTOR) $(METHODS) $(ROUTINE) $(MAIN)
+STRTOL10 = srcs/strtol10/strtol10.c
+
+SRCS = $(CTOR) $(STRTOL10) $(METHODS) $(ROUTINE) $(MAIN)
 OBJS=$(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 
 # Rules:
