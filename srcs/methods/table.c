@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:28:28 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 19:39:16 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:07:34 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	stop_all(t_table *t)
 
 	i = 0;
 	pthread_mutex_lock(&t->stop_mutex);
-	t->over = true;
+	t->is_over = true;
 	pthread_cond_broadcast(&t->stop_cond);
 	pthread_mutex_unlock(&t->stop_mutex);
 	while (i < t->config.size)
@@ -46,7 +46,7 @@ bool	get_is_over(t_table *t)
 	bool	is_over;
 
 	pthread_mutex_lock(&t->stop_mutex);
-	is_over = t->over;
+	is_over = t->is_over;
 	pthread_mutex_unlock(&t->stop_mutex);
 	return (is_over);
 }

@@ -15,7 +15,6 @@
 
 void	get_dongle(t_coder *c)
 {
-	
 	log_state(c->uid, "has taken a dongle", c->table);
 }
 

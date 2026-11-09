@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 18:36:01 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:09:34 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	precise_sleep(t_table *table, long to_wait)
 	ts.tv_sec = deadline / 1000;
 	ts.tv_nsec = (deadline % 1000) * 1000000;
 	pthread_mutex_lock(&table->stop_mutex);
-	while (!table->over && now_ms() < deadline)
+	while (!get_is_over(table) && now_ms() < deadline)
 		pthread_cond_timedwait(&table->stop_cond, &table->stop_mutex, &ts);
 	pthread_mutex_unlock(&table->stop_mutex);
 }

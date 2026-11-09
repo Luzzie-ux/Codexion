@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 19:35:25 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:10:39 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <time.h>
 # include <unistd.h>
 
+typedef struct s_heap		t_heap;
 typedef struct s_request	t_request;
 typedef struct s_config		t_config;
 typedef struct s_dongle		t_dongle;
@@ -32,7 +33,6 @@ typedef pthread_cond_t		t_cond;
 typedef pthread_t			t_thread;
 
 typedef enum e_sched		t_sched;
-typedef enum e_action		t_action;
 
 typedef enum e_sched
 {
@@ -45,9 +45,17 @@ typedef enum e_sched
 typedef struct s_request
 {
 	long					deadline;
-	int						coder_id;
-	int						ticket;
+	long					coder_id;
+	long					ticket;
 }							t_request;
+
+typedef struct s_heap
+{
+	t_request				*arr;
+	long					size;
+	long					capacity;
+	long					next_id;
+}							t_heap;
 
 typedef struct s_dongle
 {
@@ -56,10 +64,8 @@ typedef struct s_dongle
 	long					uid;
 	long					cooldown;
 	long					free_when;
-	t_request				*request;
-	long					len_request;
-	long					next_sequence;
-	long					max_size;
+	t_heap					queue;
+	t_table					*table;
 	bool					is_taken;
 }							t_dongle;
 
@@ -80,7 +86,7 @@ typedef struct s_coder
 	time_t					deadline;
 	long					last;
 	long					compiles;
-	int						uid;
+	long					uid;
 }							t_coder;
 
 typedef struct s_config
@@ -107,43 +113,41 @@ typedef struct s_table
 	t_mutex					stop_mutex;
 	t_cond					stop_cond;
 	long					start;
-	bool					over;
+	bool					is_over;
 }							t_table;
 
 // Constructors:
 t_config					new_config(const int ac, const char **av);
-t_dongle					new_dongle(int id, time_t cooldown);
-t_dongle					*new_dongle_arr(long size, time_t cooldown);
-t_coder						new_coder(int id, time_t deadline);
-t_coder						*new_coder_arr(long size, time_t deadline);
+t_dongle					dongle_ctor(long id, t_request *req);
+t_dongle					*new_dongle(t_config *cfg);
+t_coder						coder_ctor(long id);
+t_coder						*new_coder(t_config *cfg);
 t_table						*new_table(t_config *config);
 
 // Destructors:
 void						del_table(t_table *table);
-void						del_coder_arr(t_coder *coders, long size);
-void						del_dongle_arr(t_dongle *dongles, long size);
+void						del_coder(t_coder *coders, long size);
+void						del_dongle(t_dongle *dongles, long size);
 
-// Time:
-long						now_ms(void);
-void						precise_sleep(t_table *table, long to_wait);
-
-// Routine:
+// Coder Routine:
 bool						simulation(t_table *table);
 void						*routine(void *arg);
 void						*compiling(t_coder *coder);
 void						*debuging(t_coder *coder);
 void						*refactoring(t_coder *coder);
+void						get_dongle(t_coder *c);
+void						log_state(long id, const char *s, t_table *t);
+long						get_last(t_coder *coder);
+
+// Monitor Routine:
+bool						get_is_over(t_table *t);
+void						stop_all(t_table *t);
+void						*monitoring(void *arg);
 
 // Utils:
 void						*ft_calloc(size_t count, size_t size);
 long						strtol10(const char *restrict nptr, char **endptr);
-// Coder:
-void						get_dongle(t_coder *c);
-void						log_state(long id, const char *s, t_table *t);
-long						get_last(t_coder *coder);
-// Table:
-bool						get_is_over(t_table *t);
-void						stop_all(t_table *t);
-void						*monitoring(void *arg);
+long						now_ms(void);
+void						precise_sleep(t_table *table, long to_wait);
 
 #endif /*CODEXION_H*/

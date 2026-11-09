@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 16:04:35 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:11:26 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	codexion_main(t_config *config)
 		return (1);
 	if (!simulation(table))
 	{
-		fprintf(stderr, "Error: something went wrong\n");
+		fprintf(stderr, "Error: Simulation is Over\n");
 		return (del_table(table), 1);
 	}
 	return (del_table(table), 0);
