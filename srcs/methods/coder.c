@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:23:57 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 19:55:34 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:57:51 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ long	get_last(t_coder *coder)
 {
 	long	time;
 
-	pthread_mutex_lock(&coder->table->log_mutex);
+	pthread_mutex_lock(&coder->mutex);
 	time = coder->last;
-	pthread_mutex_unlock(&coder->table->log_mutex);
+	pthread_mutex_unlock(&coder->mutex);
 	return (time);
 }
 

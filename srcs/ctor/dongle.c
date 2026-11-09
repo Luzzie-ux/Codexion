@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:50 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:04:36 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:48:31 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_dongle	dongle_ctor(long id, t_request *req)
 	dongle.cooldown = 0;
 	dongle.queue = (t_heap){0};
 	dongle.queue.arr = req;
-	dongle.queue.size = 1;
+	dongle.queue.size = 0;
 	dongle.queue.capacity = 2;
 	return (dongle);
 }

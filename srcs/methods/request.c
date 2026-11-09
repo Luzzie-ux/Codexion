@@ -14,11 +14,11 @@
 
 void	heap_swap(t_request *r1, t_request *r2)
 {
-	t_request	*tmp;
+	t_request	tmp;
 
-	tmp = r1;
-	r1 = r2;
-	r2 = tmp;
+	tmp = *r1;
+	*r1 = *r2;
+	*r2 = tmp;
 }
 
 int	heap_priority(t_request *r1, t_request *r2, t_sched sched)
