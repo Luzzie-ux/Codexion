@@ -6,7 +6,7 @@
 #    By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/02 17:37:18 by rodrpere          #+#    #+#              #
-#    Updated: 2026/11/06 18:21:24 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/11/06 19:27:37 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ MAIN = srcs/main.c
 CTOR = srcs/ctor/coder.c \
 	   srcs/ctor/config.c \
 	   srcs/ctor/dongle.c \
-	   srcs/ctor/request.c \
 	   srcs/ctor/table.c
 METHODS = srcs/methods/coder.c \
 		  srcs/methods/dongle.c \

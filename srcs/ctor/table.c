@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:39:43 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 16:30:13 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 20:04:21 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,5 @@ void	del_table(t_table *table)
 	pthread_cond_destroy(&table->stop_cond);
 	free(table);
 }
+
+struct Heap Heap(long size);

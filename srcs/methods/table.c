@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:28:28 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 16:35:31 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/06 19:39:16 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,10 @@
 #include <pthread.h>
 #include <stdio.h>
 
-void	log_action(t_coder *c)
+void	log_state(long id, const char *s, t_table *t)
 {
-	t_table	*t;
-	long	time;
-	char	*str;
-
-	t = c->table;
 	pthread_mutex_lock(&t->log_mutex);
-	time = now_ms() - t->start;
-	str = "";
-	if (c->state == COMPILING)
-	{
-		str = "is compiling";
-		c->last = now_ms();
-	}
-	else if (c->state == DEBUGING)
-		str = "is debugging";
-	else if (c->state == REFACTORING)
-		str = "is refactoring";
-	printf("[%ld] Coder %d %s\n", time, c->uid, str);
+	printf("[%ld] %ld %s\n", now_ms() - t->start, id, s);
 	pthread_mutex_unlock(&t->log_mutex);
 }
 
