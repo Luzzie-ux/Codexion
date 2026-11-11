@@ -6,13 +6,13 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 17:54:31 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:18:23 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/11 22:12:37 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void	heap_swap(t_request *r1, t_request *r2)
+void	swap(t_request *r1, t_request *r2)
 {
 	t_request	tmp;
 
@@ -21,7 +21,7 @@ void	heap_swap(t_request *r1, t_request *r2)
 	*r2 = tmp;
 }
 
-int	heap_priority(t_request *r1, t_request *r2, t_sched sched)
+int	priority(t_request *r1, t_request *r2, t_sched sched)
 {
 	if (sched == FIFO)
 		return (r1->ticket < r2->ticket);
@@ -35,8 +35,8 @@ int	heap_priority(t_request *r1, t_request *r2, t_sched sched)
 	return (heap_priority(r1, r2, FIFO));
 }
 
-void	heap_reorder(t_request *request, long i);
+void	reorder(t_heap *self, t_request req, long i);
 
-void	heap_push(t_request *request);
+void	push(t_heap *self, t_request *req);
 
-void	heap_pop(t_request *request);
+void	pop(t_heap *self, t_request *req);
