@@ -169,11 +169,11 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/methods/request.c",
+   "srcs/methods/table.c",
    "-o",
-   "build/srcs/methods/request.o"
+   "build/srcs/methods/table.o"
   ],
-  "file": "srcs/methods/request.c"
+  "file": "srcs/methods/table.c"
  },
  {
   "directory": "/home/rodrpere/Codexion",
@@ -185,10 +185,10 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/methods/table.c",
+   "srcs/methods/heap.c",
    "-o",
-   "build/srcs/methods/table.o"
+   "build/srcs/methods/heap.o"
   ],
-  "file": "srcs/methods/table.c"
+  "file": "srcs/methods/heap.c"
  }
 ]

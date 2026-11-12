@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 16:39:06 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 18:32:34 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct s_dongle
 
 typedef struct s_dongles
 {
-	t_dongle				*small;
-	t_dongle				*big;
+	t_dongle				*first;
+	t_dongle				*second;
 }							t_dongles;
 
 typedef struct s_coder
@@ -122,12 +122,12 @@ t_config					config_ctor(const int ac, const char **av);
 t_dongle					dongle_ctor(long id, t_request *req);
 t_coder						coder_ctor(long id);
 
-// Heap Constructors
+// Malloc Constructors
 t_coder						*new_coder(t_config *cfg);
 t_dongle					*new_dongle(t_config *cfg);
 t_table						*new_table(t_config *config);
 
-// Destructors:
+// Malloc Destructors:
 void						del_table(t_table *table);
 void						del_coder(t_coder *coders, long size);
 void						del_dongle(t_dongle *dongles, long size);
@@ -138,12 +138,18 @@ void						*routine(void *arg);
 void						*compiling(t_coder *coder);
 void						*debuging(t_coder *coder);
 void						*refactoring(t_coder *coder);
-bool						get_dongle(t_coder *c);
+bool						get_dongle(t_dongles *ds, t_coder *c);
 bool						send_request(t_dongle *d, t_coder *c);
+void						release_dongle(t_dongle *d);
 void						log_state(long id, const char *s, t_table *t);
 long						get_last(t_coder *coder);
 
+// Heap Methods:
+void						heap_push(t_heap *q, t_request *req);
+void						heap_pop(t_heap *q);
+
 // Monitor Routine:
+long						get_start(t_table *t);
 bool						get_is_over(t_table *t);
 void						stop_all(t_table *t);
 void						*monitoring(void *arg);

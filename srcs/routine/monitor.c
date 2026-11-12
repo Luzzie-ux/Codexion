@@ -6,16 +6,17 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:00:56 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 15:43:37 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 17:58:39 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
 #include <stdio.h>
+#include <time.h>
 #include <unistd.h>
 
-static void	protect_log(t_table *t, long current_tm, t_coder *coder)
+static void	log_end(t_table *t, long current_tm, t_coder *coder)
 {
 	long	time;
 
@@ -40,7 +41,7 @@ static bool	check_burnout(t_table *t)
 	while (i < t->config.size)
 	{
 		if (time - get_last(&coders[i]) > t->config.deadline)
-			return (protect_log(t, time, &coders[i]), true);
+			return (log_end(t, time, &coders[i]), true);
 		i++;
 	}
 	return (false);
@@ -78,4 +79,12 @@ void	*monitoring(void *arg)
 		usleep(1000);
 	}
 	return (NULL);
+}
+
+long	now_ms(void)
+{
+	struct timespec	ts;
+
+	clock_gettime(CLOCK_REALTIME, &ts);
+	return ((long)(ts.tv_sec * 1000) + (ts.tv_nsec / 1000000));
 }

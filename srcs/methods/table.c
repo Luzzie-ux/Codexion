@@ -6,13 +6,14 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:28:28 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 15:43:24 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 18:00:25 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
 #include <stdio.h>
+#include <time.h>
 
 bool	get_is_over(t_table *t)
 {
@@ -67,4 +68,18 @@ void	stop_all(t_table *t)
 		pthread_mutex_unlock(&dongle->mutex);
 		i++;
 	}
+}
+
+void	precise_sleep(t_table *table, long to_wait)
+{
+	struct timespec	ts;
+	long			deadline;
+
+	deadline = now_ms() + to_wait;
+	ts.tv_sec = deadline / 1000;
+	ts.tv_nsec = (deadline % 1000) * 1000000;
+	pthread_mutex_lock(&table->sim_mutex);
+	while (!table->is_over && now_ms() < deadline)
+		pthread_cond_timedwait(&table->sim_cond, &table->sim_mutex, &ts);
+	pthread_mutex_unlock(&table->sim_mutex);
 }

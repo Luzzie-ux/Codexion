@@ -6,14 +6,46 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 14:47:35 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 18:30:41 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
-#include <time.h>
 #include <unistd.h>
+
+void	*debuging(t_coder *coder)
+{
+	log_state(coder->uid, "is debugging", coder->table);
+	precise_sleep(coder->table, coder->table->config.debug);
+	return (coder);
+}
+
+void	*refactoring(t_coder *coder)
+{
+	log_state(coder->uid, "is refactoring", coder->table);
+	precise_sleep(coder->table, coder->table->config.refactor);
+	return (coder);
+}
+
+void	*routine(void *arg)
+{
+	t_coder	*coder;
+	t_table	*table;
+
+	coder = (t_coder *)arg;
+	table = coder->table;
+	while (get_is_over(table) != true)
+	{
+		if (!compiling(coder))
+			return (NULL);
+		if (get_is_over(table) != true)
+			debuging(coder);
+		if (get_is_over(table) != true)
+			refactoring(coder);
+	}
+	return (arg);
+}
 
 bool	simulation(t_table *t)
 {
@@ -42,44 +74,4 @@ bool	simulation(t_table *t)
 		pthread_join(t->coders[i++].tid, NULL);
 	pthread_join(t->monitor, NULL);
 	return (created == t->config.size);
-}
-
-void	*routine(void *arg)
-{
-	t_coder	*coder;
-	t_table	*table;
-
-	coder = (t_coder *)arg;
-	table = coder->table;
-	while (get_is_over(table) != true)
-	{
-		compiling(coder);
-		if (get_is_over(table) != true)
-			debuging(coder);
-		if (get_is_over(table) != true)
-			refactoring(coder);
-	}
-	return (arg);
-}
-
-long	now_ms(void)
-{
-	struct timespec	ts;
-
-	clock_gettime(CLOCK_REALTIME, &ts);
-	return ((long)(ts.tv_sec * 1000) + (ts.tv_nsec / 1000000));
-}
-
-void	precise_sleep(t_table *table, long to_wait)
-{
-	struct timespec	ts;
-	long			deadline;
-
-	deadline = now_ms() + to_wait;
-	ts.tv_sec = deadline / 1000;
-	ts.tv_nsec = (deadline % 1000) * 1000000;
-	pthread_mutex_lock(&table->sim_mutex);
-	while (!table->is_over && now_ms() < deadline)
-		pthread_cond_timedwait(&table->sim_cond, &table->sim_mutex, &ts);
-	pthread_mutex_unlock(&table->sim_mutex);
 }
