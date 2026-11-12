@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:23:57 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 18:34:06 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 22:40:40 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*compiling(t_coder *coder)
 
 	ds = compare(coder->left, coder->right);
 	if (ds.first == ds.second)
-		return (log_state(coder->uid, "is compiling", coder->table), NULL);
+		return (log_state(coder->uid, "has taken a dongle", coder->table), NULL);
 	if (!get_dongles(&ds, coder))
 		return (NULL);
 	set_last(coder);

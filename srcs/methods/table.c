@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:28:28 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 18:00:25 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 22:30:07 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	log_state(long id, const char *s, t_table *t)
 {
 	long	time;
 
+	if (get_is_over(t))
+		return ;
 	time = get_start(t);
 	pthread_mutex_lock(&t->log_mutex);
 	printf("%ld %ld %s\n", now_ms() - time, id, s);

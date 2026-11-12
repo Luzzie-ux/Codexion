@@ -6,14 +6,11 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 17:54:31 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 17:51:08 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 22:36:07 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
-void		heap_push(t_heap *q, t_request *req);
-void		heap_pop(t_heap *q);
 
 static void	swap(t_request *r1, t_request *r2)
 {

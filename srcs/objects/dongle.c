@@ -40,12 +40,12 @@ t_dongle	*new_dongle(t_config *cfg)
 	dongles = ft_calloc(cfg->size, sizeof(t_dongle));
 	if (!dongles)
 		return (NULL);
-	requests = ft_calloc(cfg->size, sizeof(t_request));
+	requests = ft_calloc(2 * cfg->size, sizeof(t_request));
 	if (!requests)
 		return (free(dongles), NULL);
 	while (i < cfg->size)
 	{
-		dongles[i] = dongle_ctor(i + 1, &requests[i]);
+		dongles[i] = dongle_ctor(i + 1, &requests[2 * i]);
 		dongles[i].cooldown = cfg->cooldown;
 		dongles[i].queue.sched = cfg->schedule;
 		pthread_mutex_init(&dongles[i].mutex, NULL);
