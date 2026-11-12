@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 14:40:37 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 16:39:06 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ void						*routine(void *arg);
 void						*compiling(t_coder *coder);
 void						*debuging(t_coder *coder);
 void						*refactoring(t_coder *coder);
-void						get_dongle(t_coder *c);
+bool						get_dongle(t_coder *c);
+bool						send_request(t_dongle *d, t_coder *c);
 void						log_state(long id, const char *s, t_table *t);
 long						get_last(t_coder *coder);
 

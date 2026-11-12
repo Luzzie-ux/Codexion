@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:00:56 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 14:46:04 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 15:43:37 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	protect_log(t_table *t, long current_tm, t_coder *coder)
 	time = t->start_tm;
 	pthread_mutex_unlock(&t->sim_mutex);
 	pthread_mutex_lock(&t->log_mutex);
-	printf("[%ld] Coder %ld burned out\n", current_tm - time, coder->uid);
+	printf("%ld %ld burned out\n", current_tm - time, coder->uid);
 	pthread_mutex_unlock(&t->log_mutex);
 }
 

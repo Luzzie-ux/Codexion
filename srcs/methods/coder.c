@@ -6,16 +6,21 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:23:57 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:57:51 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 16:40:25 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
 
-void	get_dongle(t_coder *c)
+bool	get_dongles(t_coder *c)
 {
-	log_state(c->uid, "has taken a dongle", c->table);
+	t_dongles	*ds;
+
+	ds = (t_dongles *){0};
+	if (!send_request(ds->small, c))
+		return (false);
+	return (true);
 }
 
 long	get_last(t_coder *coder)
@@ -30,14 +35,14 @@ long	get_last(t_coder *coder)
 
 void	*compiling(t_coder *coder)
 {
-	get_dongle(coder);
-	get_dongle(coder);
+	if (!get_dongles(coder))
+		return (coder);
+	log_state(coder->uid, "is compiling", coder->table);
+	precise_sleep(coder->table, coder->table->config.compile);
 	pthread_mutex_lock(&coder->mutex);
 	coder->last = now_ms();
 	coder->compiles++;
 	pthread_mutex_unlock(&coder->mutex);
-	log_state(coder->uid, "is compiling", coder->table);
-	precise_sleep(coder->table, coder->table->config.compile);
 	return (coder);
 }
 

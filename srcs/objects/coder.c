@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:24 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:04:19 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 15:37:00 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_coder	*new_coder(t_config *cfg)
 	while (++i < cfg->size)
 	{
 		coders[i] = coder_ctor(i + 1);
-		coders[i].deadline = cfg->deadline;
+		if (cfg->schedule == EDF)
+			coders[i].deadline = cfg->deadline + coders[i].last;
 		pthread_mutex_init(&coders[i].mutex, NULL);
 		pthread_cond_init(&coders[i].cond, NULL);
 	}

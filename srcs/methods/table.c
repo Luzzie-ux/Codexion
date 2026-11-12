@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:28:28 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 15:13:25 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 15:43:24 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ void	log_state(long id, const char *s, t_table *t)
 
 	time = get_start(t);
 	pthread_mutex_lock(&t->log_mutex);
-	printf("[%ld] %ld %s\n", now_ms() - time, id, s);
+	printf("%ld %ld %s\n", now_ms() - time, id, s);
 	pthread_mutex_unlock(&t->log_mutex);
 }
 
 void	stop_all(t_table *t)
 {
-	int		i;
-	t_coder	*coder;
+	int			i;
+	t_coder		*coder;
+	t_dongle	*dongle;
 
 	i = 0;
 	pthread_mutex_lock(&t->sim_mutex);
@@ -57,9 +58,13 @@ void	stop_all(t_table *t)
 	while (i < t->config.size)
 	{
 		coder = &t->coders[i];
+		dongle = &t->dongles[i];
+		pthread_mutex_lock(&dongle->mutex);
 		pthread_mutex_lock(&coder->mutex);
+		pthread_cond_broadcast(&dongle->cond);
 		pthread_cond_broadcast(&coder->cond);
 		pthread_mutex_unlock(&coder->mutex);
+		pthread_mutex_unlock(&dongle->mutex);
 		i++;
 	}
 }

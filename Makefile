@@ -6,7 +6,7 @@
 #    By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/02 17:37:18 by rodrpere          #+#    #+#              #
-#    Updated: 2026/11/11 22:10:44 by rodrpere         ###   ########.fr        #
+#    Updated: 2026/11/12 16:38:01 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJECTS =   srcs/objects/coder.c \
 			srcs/objects/table.c
 METHODS =   srcs/methods/coder.c \
 			srcs/methods/dongle.c \
-			srcs/methods/request.c \
+			srcs/methods/heap.c \
 			srcs/methods/table.c
 ROUTINE =   srcs/routine/monitor.c \
 			srcs/routine/routine.c
