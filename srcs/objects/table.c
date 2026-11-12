@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:39:43 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:01:35 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 15:12:41 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_table	*new_table(t_config *config)
 	table->coders = new_coder(config);
 	table->dongles = new_dongle(config);
 	pthread_mutex_init(&table->log_mutex, NULL);
-	pthread_mutex_init(&table->stop_mutex, NULL);
-	pthread_cond_init(&table->stop_cond, NULL);
+	pthread_mutex_init(&table->sim_mutex, NULL);
+	pthread_cond_init(&table->sim_cond, NULL);
 	if (!table->coders || !table->dongles)
 		return (del_table(table), NULL);
 	seat_coders(table);
@@ -55,7 +55,7 @@ void	del_table(t_table *table)
 	del_dongle(table->dongles, table->config.size);
 	table->dongles = NULL;
 	pthread_mutex_destroy(&table->log_mutex);
-	pthread_mutex_destroy(&table->stop_mutex);
-	pthread_cond_destroy(&table->stop_cond);
+	pthread_mutex_destroy(&table->sim_mutex);
+	pthread_cond_destroy(&table->sim_cond);
 	free(table);
 }

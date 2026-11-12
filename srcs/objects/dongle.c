@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:33:50 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:48:31 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 14:37:53 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_dongle	*new_dongle(t_config *cfg)
 	{
 		dongles[i] = dongle_ctor(i + 1, &requests[i]);
 		dongles[i].cooldown = cfg->cooldown;
+		dongles[i].queue.sched = cfg->schedule;
 		pthread_mutex_init(&dongles[i].mutex, NULL);
 		pthread_cond_init(&dongles[i].cond, NULL);
 		i++;

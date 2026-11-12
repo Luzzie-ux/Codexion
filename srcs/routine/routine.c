@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 17:51:31 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 14:47:35 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ bool	simulation(t_table *t)
 	int	created;
 
 	i = 0;
-	t->start = now_ms();
+	t->start_tm = now_ms();
 	while (i < t->config.size)
-		t->coders[i++].last = t->start;
+		t->coders[i++].last = t->start_tm;
 	created = 0;
 	if (pthread_create(&t->monitor, NULL, monitoring, t))
 		return (false);
@@ -78,8 +78,8 @@ void	precise_sleep(t_table *table, long to_wait)
 	deadline = now_ms() + to_wait;
 	ts.tv_sec = deadline / 1000;
 	ts.tv_nsec = (deadline % 1000) * 1000000;
-	pthread_mutex_lock(&table->stop_mutex);
+	pthread_mutex_lock(&table->sim_mutex);
 	while (!table->is_over && now_ms() < deadline)
-		pthread_cond_timedwait(&table->stop_cond, &table->stop_mutex, &ts);
-	pthread_mutex_unlock(&table->stop_mutex);
+		pthread_cond_timedwait(&table->sim_cond, &table->sim_mutex, &ts);
+	pthread_mutex_unlock(&table->sim_mutex);
 }
