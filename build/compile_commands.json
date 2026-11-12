@@ -25,86 +25,6 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/ctor/config.c",
-   "-o",
-   "build/srcs/ctor/config.o"
-  ],
-  "file": "srcs/ctor/config.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/ctor/request.c",
-   "-o",
-   "build/srcs/ctor/request.o"
-  ],
-  "file": "srcs/ctor/request.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/ctor/dongle.c",
-   "-o",
-   "build/srcs/ctor/dongle.o"
-  ],
-  "file": "srcs/ctor/dongle.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/ctor/coder.c",
-   "-o",
-   "build/srcs/ctor/coder.o"
-  ],
-  "file": "srcs/ctor/coder.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/ctor/table.c",
-   "-o",
-   "build/srcs/ctor/table.o"
-  ],
-  "file": "srcs/ctor/table.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
    "srcs/routine/routine.c",
    "-o",
    "build/srcs/routine/routine.o"
@@ -137,11 +57,11 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/routine/time.c",
+   "srcs/strtol10/strtol10.c",
    "-o",
-   "build/srcs/routine/time.o"
+   "build/srcs/strtol10/strtol10.o"
   ],
-  "file": "srcs/routine/time.c"
+  "file": "srcs/strtol10/strtol10.c"
  },
  {
   "directory": "/home/rodrpere/Codexion",
@@ -153,10 +73,122 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/strtol10/strtol10.c",
+   "srcs/objects/coder.c",
    "-o",
-   "build/srcs/strtol10/strtol10.o"
+   "build/srcs/objects/coder.o"
   ],
-  "file": "srcs/strtol10/strtol10.c"
+  "file": "srcs/objects/coder.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/objects/config.c",
+   "-o",
+   "build/srcs/objects/config.o"
+  ],
+  "file": "srcs/objects/config.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/objects/dongle.c",
+   "-o",
+   "build/srcs/objects/dongle.o"
+  ],
+  "file": "srcs/objects/dongle.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/objects/table.c",
+   "-o",
+   "build/srcs/objects/table.o"
+  ],
+  "file": "srcs/objects/table.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/methods/coder.c",
+   "-o",
+   "build/srcs/methods/coder.o"
+  ],
+  "file": "srcs/methods/coder.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/methods/dongle.c",
+   "-o",
+   "build/srcs/methods/dongle.o"
+  ],
+  "file": "srcs/methods/dongle.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/methods/request.c",
+   "-o",
+   "build/srcs/methods/request.o"
+  ],
+  "file": "srcs/methods/request.c"
+ },
+ {
+  "directory": "/home/rodrpere/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/methods/table.c",
+   "-o",
+   "build/srcs/methods/table.o"
+  ],
+  "file": "srcs/methods/table.c"
  }
 ]
