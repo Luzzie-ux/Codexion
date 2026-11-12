@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 17:40:06 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 18:22:59 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/12 18:41:56 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	wait_myturn(t_dongle *d)
 	{
 		ts.tv_sec = d->free_when / 1000;
 		ts.tv_nsec = (d->free_when % 1000) * 1000000;
-		pthread_cond_wait(&d->cond, &d->mutex);
+		pthread_cond_timedwait(&d->cond, &d->mutex, &ts);
 	}
 	else
 		pthread_cond_wait(&d->cond, &d->mutex);
