@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 15:04:49 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 22:47:44 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,11 @@ static inline long	now_ms(void)
 
 	clock_gettime(CLOCK_MONOTONIC, &ts);
 	return ((long)ts.tv_sec * 1000L + (ts.tv_nsec / 1000000L));
+}
+
+static inline int printerr(const char *s, int i)
+{
+	return (fprintf(stderr,s, i));
 }
 
 #endif /*CODEXION_H*/

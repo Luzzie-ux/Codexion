@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 17:12:18 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 22:46:56 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,25 @@ static bool err(int argc, char *argv)
 		return (true);
 	}
 	if (argc != max)
-	{
-		fprintf(stderr, "Expected %d, got: %d", max - 1, argc - 1);
-		return (true);
-	}
+		return (printerr("Error: Expected 8 args, got:", argc -1), true);
 	return (false);
 }
 
 static int	codexion_main(t_config *config)
 {
+	int		error;
 	t_table	*table;
 
+	error = 0;
 	table = new_table(config);
 	if (!table)
-		return (1);
+		return (printerr("Error: Malloc Failed", 0), 1);
 	if (!simulation(table))
 	{
-		fprintf(stderr, "Error: Simulation is Over\n");
-		return (del_table(table), 1);
+		printerr("Error: Exiting with status code %d", 1);
+		error = 1;
 	}
-	return (del_table(table), 0);
+	return (del_table(table), error);
 }
 
 int	main(int argc, char **argv)
