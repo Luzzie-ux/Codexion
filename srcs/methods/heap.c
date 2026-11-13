@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 17:54:31 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 22:36:07 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 12:08:47 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static int	priority(t_request *r1, t_request *r2, t_sched sched)
 {
 	if (sched == FIFO)
 		return (r1->ticket < r2->ticket);
-	else if (sched == LIFO)
-		return (r1->ticket > r2->ticket);
 	else if (sched == EDF)
 	{
 		if (r1->deadline != r2->deadline)

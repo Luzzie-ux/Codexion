@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strtol10.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/05 00:49:48 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/06 10:31:44 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 15:02:11 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "codexion.h"
 #include <limits.h>
 #include <stdbool.h>
-
-static inline bool	is_digit(const unsigned char c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-static inline bool	is_space(const unsigned char c)
-{
-	return (c == ' ' || (c >= '\t' && c <= '\r'));
-}
+#include <stdlib.h>
 
 static bool	loop(unsigned long cutoff, const char **p, unsigned long *n)
 {
@@ -91,4 +83,29 @@ long	strtol10(const char *restrict nptr, char **restrict endptr)
 	if (neg == -1)
 		return ((long)(0UL - n));
 	return ((long)n);
+}
+
+static void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*p;
+
+	p = (unsigned char *)s;
+	while (n > 0)
+	{
+		*p = c;
+		p++;
+		n--;
+	}
+	return (s);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	ptr = ft_memset(ptr, 0, count * size);
+	return (ptr);
 }

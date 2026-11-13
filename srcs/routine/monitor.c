@@ -6,14 +6,13 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:00:56 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 17:58:39 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 14:49:55 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
 #include <stdio.h>
-#include <time.h>
 #include <unistd.h>
 
 static void	log_end(t_table *t, long current_tm, t_coder *coder)
@@ -81,10 +80,32 @@ void	*monitoring(void *arg)
 	return (NULL);
 }
 
-long	now_ms(void)
-{
-	struct timespec	ts;
 
-	clock_gettime(CLOCK_REALTIME, &ts);
-	return ((long)(ts.tv_sec * 1000) + (ts.tv_nsec / 1000000));
+bool	simulation(t_table *t)
+{
+	int	i;
+	int	created;
+
+	i = 0;
+	t->start_tm = now_ms();
+	while (i < t->config.size)
+		t->coders[i++].last = t->start_tm;
+	created = 0;
+	if (pthread_create(&t->monitor, NULL, monitoring, t))
+		return (false);
+	while (created < t->config.size)
+	{
+		if (pthread_create(&t->coders[created].tid, NULL, routine,
+				&t->coders[created]))
+		{
+			stop_all(t);
+			break ;
+		}
+		created++;
+	}
+	i = 0;
+	while (i < created)
+		pthread_join(t->coders[i++].tid, NULL);
+	pthread_join(t->monitor, NULL);
+	return (created == t->config.size);
 }

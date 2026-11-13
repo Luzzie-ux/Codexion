@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/12 18:32:34 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 15:04:49 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <time.h>
 # include <unistd.h>
 
@@ -37,7 +36,6 @@ typedef enum e_sched
 {
 	INVALID,
 	FIFO,
-	LIFO,
 	EDF,
 }							t_sched;
 
@@ -83,7 +81,6 @@ typedef struct s_coder
 	t_thread				tid;
 	t_mutex					mutex;
 	t_cond					cond;
-	time_t					deadline;
 	long					last;
 	long					compiles;
 	long					uid;
@@ -119,7 +116,7 @@ typedef struct s_table
 
 // Default Constructors:
 t_config					config_ctor(const int ac, const char **av);
-t_dongle					dongle_ctor(long id, t_request *req);
+t_dongle					dongle_ctor(long id, t_request *request);
 t_coder						coder_ctor(long id);
 
 // Malloc Constructors
@@ -138,26 +135,49 @@ void						*routine(void *arg);
 void						*compiling(t_coder *coder);
 void						*debuging(t_coder *coder);
 void						*refactoring(t_coder *coder);
-bool						get_dongle(t_dongles *ds, t_coder *c);
-bool						send_request(t_dongle *d, t_coder *c);
-void						release_dongle(t_dongle *d);
-void						log_state(long id, const char *s, t_table *t);
+
+// Coder Methods:
+void inc_comps(t_coder *coder);
+bool						get_dongles(t_dongles *ds, t_coder *coder);
+bool						send_request(t_dongle *dongle, t_coder *coder);
+void						release_dongle(t_dongle *dongle);
 long						get_last(t_coder *coder);
+void						set_last(t_coder *coder);
 
 // Heap Methods:
-void						heap_push(t_heap *q, t_request *req);
-void						heap_pop(t_heap *q);
+void						heap_push(t_heap *queue, t_request *request);
+void						heap_pop(t_heap *queue);
 
 // Monitor Routine:
-long						get_start(t_table *t);
-bool						get_is_over(t_table *t);
-void						stop_all(t_table *t);
+long						get_start(t_table *table);
+bool						get_is_over(t_table *table);
+void						stop_all(t_table *table);
 void						*monitoring(void *arg);
+void						log_state(long id, const char *s, t_table *table);
 
 // Utils:
 void						*ft_calloc(size_t count, size_t size);
 long						strtol10(const char *restrict nptr, char **endptr);
-long						now_ms(void);
 void						precise_sleep(t_table *table, long to_wait);
+
+
+// Inline Helpers:
+static inline bool	is_digit(const unsigned char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+static inline bool	is_space(const unsigned char c)
+{
+	return (c == ' ' || (c >= '\t' && c <= '\r'));
+}
+
+static inline long	now_ms(void)
+{
+	struct timespec	ts;
+
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return ((long)ts.tv_sec * 1000L + (ts.tv_nsec / 1000000L));
+}
 
 #endif /*CODEXION_H*/

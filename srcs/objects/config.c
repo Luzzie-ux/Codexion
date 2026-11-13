@@ -6,29 +6,39 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 23:18:44 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 15:03:24 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <limits.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+static int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (1);
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+	{
+		i++;
+	}
+	return (s1[i] - s2[i]);
+}
 
 static t_sched	sched(const char *str)
 {
-	if (!strcmp(str, "fifo"))
+	if (!ft_strcmp(str, "fifo"))
 		return (FIFO);
-	else if (!strcmp(str, "lifo"))
-		return (LIFO);
-	else if (!strcmp(str, "edf"))
+	else if (!ft_strcmp(str, "edf"))
 		return (EDF);
 	fprintf(stderr, "Error: Invalid scheduling algorithm '%s'\n", str);
 	return (INVALID);
 }
 
-static void	assign(t_config *cfg, int count)
+static void	assign(t_config *cfg, long vals[8], int count)
 {
 	int	i;
 
@@ -36,7 +46,7 @@ static void	assign(t_config *cfg, int count)
 	cfg->error = false;
 	while (i < count)
 	{
-		if (cfg->values[i] <= 0 || cfg->values[i] > INT_MAX)
+		if (vals[i] < 0 || vals[i] > INT_MAX)
 		{
 			fprintf(stderr, "Error: Invalid value for argument nº%d\n", i + 1);
 			cfg->error = true;
@@ -45,46 +55,35 @@ static void	assign(t_config *cfg, int count)
 	}
 	if (cfg->error)
 		return ;
-	cfg->size = cfg->values[0];
-	cfg->deadline = cfg->values[1];
-	cfg->compile = cfg->values[2];
-	cfg->debug = cfg->values[3];
-	cfg->refactor = cfg->values[4];
-	cfg->tasks = cfg->values[5];
-	cfg->cooldown = cfg->values[6];
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	ptr = malloc(count * size);
-	if (!ptr)
-		return (NULL);
-	memset(ptr, 0, count * size);
-	return (ptr);
+	cfg->size = vals[0];
+	cfg->deadline = vals[1];
+	cfg->compile = vals[2];
+	cfg->debug = vals[3];
+	cfg->refactor = vals[4];
+	cfg->tasks = vals[5];
+	cfg->cooldown = vals[6];
 }
 
 t_config	config_ctor(const int size, const char **args)
 {
 	int			i;
+	long		vals[8];
+	char		*ptr;
 	t_config	cfg;
 
 	i = 0;
 	cfg = (t_config){0};
-	if (size != 8)
-	{
-		fprintf(stderr, "Error: expected 8 args, got %d\n", size);
-		return (cfg.error = true, cfg);
-	}
-	cfg.values = ft_calloc(size - 1, sizeof(long));
-	if (!cfg.values)
-		return (cfg.error = true, cfg);
 	while (i++ < size - 1)
-		cfg.values[i - 1] = strtol10(args[i - 1], NULL);
-	assign(&cfg, size - 1);
+	{
+		vals[i - 1] = strtol10(args[i - 1], &ptr);
+		if (ptr)
+		{
+			fprintf(stderr, "AAA");
+		}
+	}
+	assign(&cfg, vals, size - 1);
 	cfg.schedule = sched(args[size - 1]);
 	if (cfg.schedule == INVALID)
 		cfg.error = true;
-	return (free(cfg.values), cfg.values = NULL, cfg);
+	return (cfg);
 }

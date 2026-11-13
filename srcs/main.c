@@ -6,12 +6,32 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/09 23:18:58 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 12:15:46 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <stdio.h>
+
+static bool err(int argc, char *argv)
+{
+	int min;
+	int max;
+
+	min = 2;
+	max = 8;
+	if (argc < min)
+	{
+		fprintf(stderr, "Usage: %s <arguments>\n", argv);
+		return (true);
+	}
+	if ((argc - 1) != max)
+	{
+		fprintf(stderr, "Expected %d, got: %d", max, (argc - 1));
+		return (true);
+	}
+	return (false);
+}
 
 static int	codexion_main(t_config *config)
 {
@@ -32,8 +52,8 @@ int	main(int argc, char **argv)
 {
 	t_config	cfg;
 
-	if (argc < 2)
-		return (fprintf(stderr, "Usage: %s <arguments>\n", argv[0]));
+	if (err(argc, argv[0]))
+		return (1);
 	cfg = config_ctor(argc - 1, (const char **)argv + 1);
 	if (cfg.error)
 		return (1);
