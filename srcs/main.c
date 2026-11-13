@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 12:15:46 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 17:12:18 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static bool err(int argc, char *argv)
 	int max;
 
 	min = 2;
-	max = 8;
+	max = 9;
 	if (argc < min)
 	{
 		fprintf(stderr, "Usage: %s <arguments>\n", argv);
 		return (true);
 	}
-	if ((argc - 1) != max)
+	if (argc != max)
 	{
-		fprintf(stderr, "Expected %d, got: %d", max, (argc - 1));
+		fprintf(stderr, "Expected %d, got: %d", max - 1, argc - 1);
 		return (true);
 	}
 	return (false);
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 
 	if (err(argc, argv[0]))
 		return (1);
-	cfg = config_ctor(argc - 1, (const char **)argv + 1);
+	cfg = config_ctor(argc, (const char **)argv);
 	if (cfg.error)
 		return (1);
 	return (codexion_main(&cfg));

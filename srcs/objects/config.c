@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 15:03:24 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 17:14:16 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,52 +38,37 @@ static t_sched	sched(const char *str)
 	return (INVALID);
 }
 
-static void	assign(t_config *cfg, long vals[8], int count)
+static inline int printerr(const char *s, int i)
 {
-	int	i;
-
-	i = 0;
-	cfg->error = false;
-	while (i < count)
-	{
-		if (vals[i] < 0 || vals[i] > INT_MAX)
-		{
-			fprintf(stderr, "Error: Invalid value for argument nº%d\n", i + 1);
-			cfg->error = true;
-		}
-		i++;
-	}
-	if (cfg->error)
-		return ;
-	cfg->size = vals[0];
-	cfg->deadline = vals[1];
-	cfg->compile = vals[2];
-	cfg->debug = vals[3];
-	cfg->refactor = vals[4];
-	cfg->tasks = vals[5];
-	cfg->cooldown = vals[6];
+	return (fprintf(stderr,s, i));
 }
 
+static bool check(const char *arg, int index)
+{
+	long	val;
+	char	*ptr;
+
+	val = strtol10(arg, &ptr);
+	if (val < 0 || val > INT_MAX)
+		return (printerr("Invalid value for argument nº%d", index), true);
+	if (ptr == arg || *ptr != '\0')
+		return (printerr("Invalid argument nº%d", index), true);
+	return (false);
+}
+
+static void assigment(t_config *cfg, const char **args);
 t_config	config_ctor(const int size, const char **args)
 {
 	int			i;
-	long		vals[8];
-	char		*ptr;
 	t_config	cfg;
 
-	i = 0;
-	cfg = (t_config){0};
-	while (i++ < size - 1)
-	{
-		vals[i - 1] = strtol10(args[i - 1], &ptr);
-		if (ptr)
-		{
-			fprintf(stderr, "AAA");
-		}
+	i = 1;
+	cfg.size = (long)size;
+	while(i < size - 1){
+		cfg.error = check(args[i], i);
+		i++;
 	}
-	assign(&cfg, vals, size - 1);
-	cfg.schedule = sched(args[size - 1]);
-	if (cfg.schedule == INVALID)
-		cfg.error = true;
+	if (!cfg.error)
+		assigment(&cfg, args);
 	return (cfg);
 }
