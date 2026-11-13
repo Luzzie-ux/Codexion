@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 23:33:40 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 23:46:32 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ static inline long	now_ms(void)
 {
 	struct timespec	ts;
 
-	clock_gettime(CLOCK_REALTIME, &ts);
+	clock_gettime(CLOCK_MONOTONIC, &ts);
 	return ((long)ts.tv_sec * 1000L + (ts.tv_nsec / 1000000L));
 }
 
