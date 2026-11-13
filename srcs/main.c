@@ -13,10 +13,10 @@
 #include "codexion.h"
 #include <stdio.h>
 
-static bool err(int argc, char *argv)
+static bool	err(int argc, char *argv)
 {
-	int min;
-	int max;
+	int	min;
+	int	max;
 
 	min = 2;
 	max = 9;
@@ -26,7 +26,7 @@ static bool err(int argc, char *argv)
 		return (true);
 	}
 	if (argc != max)
-		return (printerr("Error: Expected 8 args, got:%d\n", argc -1), true);
+		return (printerr("Error: Expected 8 args, got:%d\n", argc - 1), true);
 	return (false);
 }
 

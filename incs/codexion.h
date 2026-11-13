@@ -6,13 +6,14 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 23:19:01 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 23:33:40 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
 
+# include <bits/time.h>
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -136,7 +137,7 @@ void						*debuging(t_coder *coder);
 void						*refactoring(t_coder *coder);
 
 // Coder Methods:
-void inc_comps(t_coder *coder);
+void						inc_comps(t_coder *coder);
 bool						get_dongles(t_dongles *ds, t_coder *coder);
 bool						send_request(t_dongle *dongle, t_coder *coder);
 void						release_dongle(t_dongle *dongle);
@@ -159,7 +160,6 @@ void						*ft_calloc(size_t count, size_t size);
 long						strtol10(const char *restrict nptr, char **endptr);
 void						precise_sleep(t_table *table, long to_wait);
 
-
 // Inline Helpers:
 static inline bool	is_digit(const unsigned char c)
 {
@@ -175,13 +175,13 @@ static inline long	now_ms(void)
 {
 	struct timespec	ts;
 
-	clock_gettime(CLOCK_MONOTONIC, &ts);
+	clock_gettime(CLOCK_REALTIME, &ts);
 	return ((long)ts.tv_sec * 1000L + (ts.tv_nsec / 1000000L));
 }
 
-static inline int printerr(const char *s, int i)
+static inline int	printerr(const char *s, int i)
 {
-	return (fprintf(stderr,s, i));
+	return (fprintf(stderr, s, i));
 }
 
 #endif /*CODEXION_H*/

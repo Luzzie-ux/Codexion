@@ -80,7 +80,6 @@ void	*monitoring(void *arg)
 	return (NULL);
 }
 
-
 bool	simulation(t_table *t)
 {
 	int	i;

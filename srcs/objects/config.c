@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 23:22:27 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 23:36:37 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_sched	sched(const char *str)
 	return (INVALID);
 }
 
-static t_sched check(const char *arg, int index)
+static t_sched	check(const char *arg, int index)
 {
 	long	val;
 	char	*ptr;
@@ -57,19 +57,14 @@ static t_sched check(const char *arg, int index)
 	return (VALID);
 }
 
-static void assigment(t_config *cfg, const char **args)
+static void	assigment(t_config *cfg, const char **args)
 {
-	int i;
-	int values[cfg->size];
+	int	i;
+	int	values[7];
 
 	i = 0;
-	while(++i < cfg->size)
-		values[i] = atoi(args[i]);
-	if (values[0] == 0)
-	{
-		printerr("Error: Number of Coders is 0\n", 0);
-		cfg->schedule = INVALID;
-	}
+	while (++i < cfg->size)
+		values[i - 1] = atoi(args[i]);
 	cfg->size = values[0];
 	cfg->deadline = values[1];
 	cfg->compile = values[2];
@@ -85,13 +80,14 @@ t_config	config_ctor(const int size, const char **args)
 	t_config	cfg;
 
 	i = 0;
+	cfg = (t_config){0};
 	cfg.size = (long)size - 1;
-	while(++i < cfg.size)
-		cfg.schedule = check(args[i], i);
-	if (cfg.schedule == VALID)
+	while (++i < cfg.size)
 	{
-		assigment(&cfg, args);
-		cfg.schedule = sched(args[i]);
+		if (check(args[i], i) == INVALID)
+			break ;
 	}
+	assigment(&cfg, args);
+	cfg.schedule = sched(args[i]);
 	return (cfg);
 }

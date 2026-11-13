@@ -13,7 +13,7 @@
 #include "codexion.h"
 #include <pthread.h>
 
-void inc_comps(t_coder *coder)
+void	inc_comps(t_coder *coder)
 {
 	pthread_mutex_lock(&coder->mutex);
 	coder->compiles++;
