@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 22:47:44 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 23:19:01 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef enum e_sched		t_sched;
 
 typedef enum e_sched
 {
+	VALID,
 	INVALID,
 	FIFO,
 	EDF,
@@ -89,7 +90,6 @@ typedef struct s_coder
 // Simulation Containers:
 typedef struct s_config
 {
-	long					*values;
 	long					size;
 	long					deadline;
 	long					compile;
@@ -98,7 +98,6 @@ typedef struct s_config
 	long					tasks;
 	long					cooldown;
 	t_sched					schedule;
-	bool					error;
 }							t_config;
 
 typedef struct s_table

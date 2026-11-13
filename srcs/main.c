@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 22:46:56 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 23:25:27 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool err(int argc, char *argv)
 		return (true);
 	}
 	if (argc != max)
-		return (printerr("Error: Expected 8 args, got:", argc -1), true);
+		return (printerr("Error: Expected 8 args, got:%d\n", argc -1), true);
 	return (false);
 }
 
@@ -38,10 +38,10 @@ static int	codexion_main(t_config *config)
 	error = 0;
 	table = new_table(config);
 	if (!table)
-		return (printerr("Error: Malloc Failed", 0), 1);
+		return (printerr("Error: Malloc Failed\n", 0), 1);
 	if (!simulation(table))
 	{
-		printerr("Error: Exiting with status code %d", 1);
+		printerr("Error: Exiting with status code %d\n", 1);
 		error = 1;
 	}
 	return (del_table(table), error);
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	if (err(argc, argv[0]))
 		return (1);
 	cfg = config_ctor(argc, (const char **)argv);
-	if (cfg.error)
+	if (cfg.schedule == INVALID)
 		return (1);
 	return (codexion_main(&cfg));
 }

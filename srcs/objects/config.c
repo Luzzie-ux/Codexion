@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 23:12:53 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 23:22:27 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ static t_sched	sched(const char *str)
 		return (FIFO);
 	else if (!ft_strcmp(str, "edf"))
 		return (EDF);
+	printerr("Error: Invalid Scheduling Algorithm\n", 0);
 	return (INVALID);
 }
 
-static bool check(const char *arg, int index)
+static t_sched check(const char *arg, int index)
 {
 	long	val;
 	char	*ptr;
@@ -45,34 +46,29 @@ static bool check(const char *arg, int index)
 	val = strtol10(arg, &ptr);
 	if (val < 0 || val > INT_MAX)
 	{
-		printerr("Error: Invalid value for argument nº%d", index);
-		return (true);
+		printerr("Error: Invalid value for argument nº%d\n", index);
+		return (INVALID);
 	}
 	if (ptr == arg || *ptr != '\0')
 	{
-		printerr("Error: Invalid argument nº%d", index);
-		return (true);
+		printerr("Error: Invalid argument nº%d\n", index);
+		return (INVALID);
 	}
-	if (index == 8 && sched(arg) == INVALID)
-	{
-		printerr("Error: Invalid Scheduling Algorithm", 0);
-		return (true);
-	}
-	return (false);
+	return (VALID);
 }
 
 static void assigment(t_config *cfg, const char **args)
 {
 	int i;
-	int values[cfg->size - 1];
+	int values[cfg->size];
 
 	i = 0;
-	while(++i < cfg->size - 1)
+	while(++i < cfg->size)
 		values[i] = atoi(args[i]);
 	if (values[0] == 0)
 	{
-		printerr("Error: Number of Coders is 0", 0);
-		cfg->error = true;
+		printerr("Error: Number of Coders is 0\n", 0);
+		cfg->schedule = INVALID;
 	}
 	cfg->size = values[0];
 	cfg->deadline = values[1];
@@ -89,10 +85,10 @@ t_config	config_ctor(const int size, const char **args)
 	t_config	cfg;
 
 	i = 0;
-	cfg.size = (long)size;
-	while(++i < size)
-		cfg.error = check(args[i], i);
-	if (!cfg.error)
+	cfg.size = (long)size - 1;
+	while(++i < cfg.size)
+		cfg.schedule = check(args[i], i);
+	if (cfg.schedule == VALID)
 	{
 		assigment(&cfg, args);
 		cfg.schedule = sched(args[i]);
