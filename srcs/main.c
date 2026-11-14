@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/14 00:02:42 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/14 21:38:58 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int	codexion_main(t_config *config)
 	t_table	*table;
 
 	error = 0;
+	if (!config->size || !config->tasks)
+		return (error);
 	table = new_table(config);
 	if (!table)
 		return (printerr("Error: Malloc Failed\n", 0), 1);
@@ -54,7 +56,7 @@ int	main(int argc, char **argv)
 	if (err(argc, argv[0]))
 		return (1);
 	cfg = config_ctor(argc, (const char **)argv);
-	if (!cfg.size || cfg.schedule == INVALID)
+	if (cfg.schedule == INVALID)
 		return (1);
 	return (codexion_main(&cfg));
 }
