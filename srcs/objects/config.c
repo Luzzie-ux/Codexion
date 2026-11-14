@@ -85,7 +85,7 @@ t_config	config_ctor(const int size, const char **args)
 	while (++i < cfg.size)
 	{
 		cfg.schedule = check(args[i], i);
-		if(cfg.schedule == INVALID)
+		if (cfg.schedule == INVALID)
 			return (cfg);
 	}
 	assigment(&cfg, args);
