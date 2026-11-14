@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 11:40:14 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 23:25:27 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/14 00:02:42 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	if (err(argc, argv[0]))
 		return (1);
 	cfg = config_ctor(argc, (const char **)argv);
-	if (cfg.schedule == INVALID)
+	if (!cfg.size || cfg.schedule == INVALID)
 		return (1);
 	return (codexion_main(&cfg));
 }

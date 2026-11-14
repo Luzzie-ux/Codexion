@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 16:28:28 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 23:43:52 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/13 23:58:45 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	log_state(long id, const char *s, t_table *t)
 
 	pthread_mutex_lock(&t->log_mutex);
 	if (get_is_over(t))
-		return ;
+		return (pthread_mutex_unlock(&t->log_mutex), (void)0);
 	time = get_start(t);
 	printf("%ld %ld %s\n", now_ms() - time, id, s);
 	pthread_mutex_unlock(&t->log_mutex);

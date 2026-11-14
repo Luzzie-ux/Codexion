@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:43:51 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 23:41:02 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/14 00:02:27 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,11 @@ t_config	config_ctor(const int size, const char **args)
 	cfg.size = (long)size - 1;
 	while (++i < cfg.size)
 	{
-		if (check(args[i], i) == INVALID)
-			break ;
+		cfg.schedule = check(args[i], i);
+		if(cfg.schedule == INVALID)
+			return (cfg);
 	}
 	assigment(&cfg, args);
 	cfg.schedule = sched(args[i]);
-	if (cfg.size == 0)
-		cfg.schedule = INVALID;
 	return (cfg);
 }
