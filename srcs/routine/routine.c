@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+        */
+/*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/02 11:55:02 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 14:51:19 by rodrpere         ###   ########.fr       */
+/*   Created: 2026/11/16 17:50:13 by rodrpere          #+#    #+#             */
+/*   Updated: 2026/11/16 17:56:16 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ void	*routine(void *arg)
 	table = coder->table;
 	while (get_is_over(table) != true)
 	{
-		if (!compiling(coder))
-			return (NULL);
+		compiling(coder);
 		if (get_is_over(table) != true)
 			debuging(coder);
 		if (get_is_over(table) != true)

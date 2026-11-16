@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodrpere <rodrpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/28 12:44:03 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/13 23:49:02 by rodrpere         ###   ########.fr       */
+/*   Created: 2026/11/16 17:44:57 by rodrpere          #+#    #+#             */
+/*   Updated: 2026/11/16 17:45:07 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,29 +159,9 @@ void						log_state(long id, const char *s, t_table *table);
 void						*ft_calloc(size_t count, size_t size);
 long						strtol10(const char *restrict nptr, char **endptr);
 void						precise_sleep(t_table *table, long to_wait);
-
-// Inline Helpers:
-static inline bool	is_digit(const unsigned char c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-static inline bool	is_space(const unsigned char c)
-{
-	return (c == ' ' || (c >= '\t' && c <= '\r'));
-}
-
-static inline long	now_ms(void)
-{
-	struct timespec	ts;
-
-	clock_gettime(CLOCK_REALTIME, &ts);
-	return ((long)ts.tv_sec * 1000L + (ts.tv_nsec / 1000000L));
-}
-
-static inline int	printerr(const char *s, int i)
-{
-	return (fprintf(stderr, s, i));
-}
+bool						is_digit(const unsigned char c);
+bool						is_space(const unsigned char c);
+long						now_ms(void);
+int							printerr(const char *s, int i);
 
 #endif /*CODEXION_H*/

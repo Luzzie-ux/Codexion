@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rodrpere <rodrpere@42.student.42.fr>       +#+  +:+       +#+         #
+#    By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/11/02 17:37:18 by rodrpere          #+#    #+#              #
-#    Updated: 2026/11/13 14:54:33 by rodrpere         ###   ########.fr        #
+#    Created: 2026/11/16 17:46:16 by rodrpere          #+#    #+#              #
+#    Updated: 2026/11/16 17:46:18 by rodrpere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ METHODS =   srcs/methods/coder.c \
 			srcs/methods/table.c
 ROUTINE =   srcs/routine/monitor.c \
 			srcs/routine/routine.c \
-			srcs/routine/utils.c
+			srcs/routine/utils.c \
+			srcs/routine/helpers.c
 
 SRCS = $(OBJECTS) $(STRTOL10) $(METHODS) $(ROUTINE) $(MAIN)
 OBJS = $(patsubst %.c,$(BUILD)/%.o,$(SRCS))
