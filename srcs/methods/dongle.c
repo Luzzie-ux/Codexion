@@ -16,14 +16,16 @@
 
 static inline bool	is_myturn(t_coder *c, t_dongle *d)
 {
-	return (!d->is_taken && d->queue.arr[0].coder_id == c->uid
+	return (d->queue.size > 0 && !d->is_taken && d->queue.arr[0].coder_id == c->uid
 		&& now_ms() >= d->free_when);
 }
 
 static void	wait_myturn(t_dongle *d)
 {
 	struct timespec	ts;
+	long 			now;
 
+	now = now_ms();
 	if (!d->is_taken && now_ms() < d->free_when)
 	{
 		ts.tv_sec = d->free_when / 1000;
