@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 17:45:35 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/16 17:45:35 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/16 22:48:44 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 
 static inline bool	is_myturn(t_coder *c, t_dongle *d)
 {
-	return (d->queue.size > 0 && !d->is_taken && d->queue.arr[0].coder_id == c->uid
-		&& now_ms() >= d->free_when);
+	return (d->queue.size > 0 && !d->is_taken
+		&& d->queue.arr[0].coder_id == c->uid && now_ms() >= d->free_when);
 }
 
 static void	wait_myturn(t_dongle *d)
 {
 	struct timespec	ts;
-	long 			now;
+	long			now;
 
 	now = now_ms();
-	if (!d->is_taken && now_ms() < d->free_when)
+	if (!d->is_taken && now < d->free_when)
 	{
 		ts.tv_sec = d->free_when / 1000;
 		ts.tv_nsec = (d->free_when % 1000) * 1000000;
