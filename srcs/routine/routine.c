@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 17:50:13 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/17 18:04:10 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/17 19:04:25 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	*routine(void *arg)
 	table = coder->table;
 	while (get_is_over(table) != true)
 	{
-		compiling(coder);
+		if (!compiling(coder))
+			return (NULL);
 		if (get_is_over(table) != true)
 			debuging(coder);
 		if (get_is_over(table) != true)

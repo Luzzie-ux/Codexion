@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 18:38:33 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/17 18:53:15 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/17 19:01:06 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static bool	loop(t_coder *c, t_pair *ps, t_request *r)
 	bool	done;
 
 	done = false;
-	while (!done)
+	while (1)
 	{
 		if (get_is_over(c->table))
 		{
@@ -91,14 +91,17 @@ bool	acquire_dongles(t_coder *c, t_pair *ps)
 {
 	t_request	r;
 	t_table		*t;
+	bool res;
 
 	t = c->table;
 	pthread_mutex_lock(&t->log_mutex);
-	r = (t_request){.coder_id = c->uid, .deadline = get_last(c) + c->deadline,
-		.ticket = t->ticket_len++};
+	r.coder_id = c->uid;
+	r.deadline = get_last(c) + c->deadline;
+	r.ticket = t->ticket_len++;
 	pthread_mutex_unlock(&t->log_mutex);
 	pthread_mutex_lock(&ps->first->mutex);
 	pthread_mutex_lock(&ps->second->mutex);
 	create_request(ps, &r);
-	return (loop(c, ps, &r));
+	res = loop(c, ps, &r);
+	return (res);
 }
