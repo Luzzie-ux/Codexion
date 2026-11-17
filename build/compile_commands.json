@@ -1,70 +1,6 @@
 [
  {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/main.c",
-   "-o",
-   "build/srcs/main.o"
-  ],
-  "file": "srcs/main.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/routine/routine.c",
-   "-o",
-   "build/srcs/routine/routine.o"
-  ],
-  "file": "srcs/routine/routine.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/routine/monitor.c",
-   "-o",
-   "build/srcs/routine/monitor.o"
-  ],
-  "file": "srcs/routine/monitor.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
-  "arguments": [
-   "cc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pthread",
-   "-Iincs",
-   "-c",
-   "srcs/strtol10/strtol10.c",
-   "-o",
-   "build/srcs/strtol10/strtol10.o"
-  ],
-  "file": "srcs/strtol10/strtol10.c"
- },
- {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/rodrpere/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -80,7 +16,7 @@
   "file": "srcs/objects/coder.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/rodrpere/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -96,7 +32,7 @@
   "file": "srcs/objects/config.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/rodrpere/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -112,7 +48,7 @@
   "file": "srcs/objects/dongle.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/rodrpere/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -128,7 +64,7 @@
   "file": "srcs/objects/table.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/rodrpere/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -144,7 +80,7 @@
   "file": "srcs/methods/coder.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/rodrpere/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -160,7 +96,39 @@
   "file": "srcs/methods/dongle.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/rodrpere/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/methods/pair.c",
+   "-o",
+   "build/srcs/methods/pair.o"
+  ],
+  "file": "srcs/methods/pair.c"
+ },
+ {
+  "directory": "/home/rodrpere/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/methods/heap.c",
+   "-o",
+   "build/srcs/methods/heap.o"
+  ],
+  "file": "srcs/methods/heap.c"
+ },
+ {
+  "directory": "/home/rodrpere/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -176,7 +144,7 @@
   "file": "srcs/methods/table.c"
  },
  {
-  "directory": "/home/rodrpere/Codexion",
+  "directory": "/home/rodrpere/C/Codexion",
   "arguments": [
    "cc",
    "-Wall",
@@ -185,10 +153,74 @@
    "-pthread",
    "-Iincs",
    "-c",
-   "srcs/methods/heap.c",
+   "srcs/routine/monitor.c",
    "-o",
-   "build/srcs/methods/heap.o"
+   "build/srcs/routine/monitor.o"
   ],
-  "file": "srcs/methods/heap.c"
+  "file": "srcs/routine/monitor.c"
+ },
+ {
+  "directory": "/home/rodrpere/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/routine/routine.c",
+   "-o",
+   "build/srcs/routine/routine.o"
+  ],
+  "file": "srcs/routine/routine.c"
+ },
+ {
+  "directory": "/home/rodrpere/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/routine/utils.c",
+   "-o",
+   "build/srcs/routine/utils.o"
+  ],
+  "file": "srcs/routine/utils.c"
+ },
+ {
+  "directory": "/home/rodrpere/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/routine/helpers.c",
+   "-o",
+   "build/srcs/routine/helpers.o"
+  ],
+  "file": "srcs/routine/helpers.c"
+ },
+ {
+  "directory": "/home/rodrpere/C/Codexion",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-Iincs",
+   "-c",
+   "srcs/main.c",
+   "-o",
+   "build/srcs/main.o"
+  ],
+  "file": "srcs/main.c"
  }
 ]

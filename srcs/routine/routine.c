@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 17:50:13 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/17 00:37:24 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/17 18:04:10 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,47 @@
 #include <pthread.h>
 #include <unistd.h>
 
-static t_dongles	compare(t_dongle *left, t_dongle *right)
+static t_pair	compare(t_dongle *left, t_dongle *right)
 {
-	t_dongles	ds;
+	t_pair	ps;
 
-	ds = (t_dongles){0};
+	ps = (t_pair){0};
 	if (left->uid < right->uid)
-		return (ds.first = left, ds.second = right, ds);
-	ds.first = right;
-	ds.second = left;
-	return (ds);
+		return (ps.first = left, ps.second = right, ps);
+	ps.first = right;
+	ps.second = left;
+	return (ps);
 }
 
 void	*compiling(t_coder *coder)
 {
-	t_dongles	ds;
+	t_pair	ps;
 
-	ds = compare(coder->left, coder->right);
-	if (!get_dongles(&ds, coder))
+	ps = compare(coder->left, coder->right);
+	if (ps.first == ps.second)
+		return (log_state(coder->uid, "has taken a dongle", coder->table),
+			NULL);
+	if (!acquire_dongles(coder, &ps))
 		return (NULL);
 	set_last(coder);
 	log_state(coder->uid, "is compiling", coder->table);
-	precise_sleep(coder->table, coder->table->config.compile);
-	release_dongle(ds.first);
-	release_dongle(ds.second);
-	inc_comps(coder);
+	usleep(coder->table->config.compile * 1000);
+	release_dongles(&ps);
+	set_compiles(coder);
 	return (coder);
 }
 
 void	*debuging(t_coder *coder)
 {
 	log_state(coder->uid, "is debugging", coder->table);
-	precise_sleep(coder->table, coder->table->config.debug);
+	usleep(coder->table->config.debug * 1000);
 	return (coder);
 }
 
 void	*refactoring(t_coder *coder)
 {
 	log_state(coder->uid, "is refactoring", coder->table);
-	precise_sleep(coder->table, coder->table->config.refactor);
+	usleep(coder->table->config.refactor * 1000);
 	return (coder);
 }
 
@@ -65,8 +67,7 @@ void	*routine(void *arg)
 	table = coder->table;
 	while (get_is_over(table) != true)
 	{
-		if (!compiling(coder))
-			continue ;
+		compiling(coder);
 		if (get_is_over(table) != true)
 			debuging(coder);
 		if (get_is_over(table) != true)

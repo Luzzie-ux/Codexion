@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 17:49:52 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/16 17:49:54 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/17 18:00:46 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ long	now_ms(void)
 
 	clock_gettime(CLOCK_REALTIME, &ts);
 	return ((long)ts.tv_sec * 1000L + (ts.tv_nsec / 1000000L));
+}
+
+struct timespec	to_ts(long ms)
+{
+	struct timespec	ts;
+	long			time;
+
+	time = now_ms() + ms;
+	ts.tv_sec = time / 1000;
+	ts.tv_nsec = (time % 1000) * 1000000;
+	return (ts);
 }
 
 int	printerr(const char *s, int i)

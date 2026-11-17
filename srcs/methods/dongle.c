@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/16 17:45:35 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/16 22:48:44 by rodrpere         ###   ########.fr       */
+/*   Created: 2026/11/17 14:55:54 by rodrpere          #+#    #+#             */
+/*   Updated: 2026/11/17 18:52:56 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,42 @@
 #include <pthread.h>
 #include <time.h>
 
-static inline bool	is_myturn(t_coder *c, t_dongle *d)
-{
-	return (d->queue.size > 0 && !d->is_taken
-		&& d->queue.arr[0].coder_id == c->uid && now_ms() >= d->free_when);
-}
-
-static void	wait_myturn(t_dongle *d)
+void	wait(t_coder *c, t_dongle *d)
 {
 	struct timespec	ts;
-	long			now;
 
-	now = now_ms();
-	if (!d->is_taken && now < d->free_when)
+	if (get_is_over(c->table))
+		return ;
+	else if (d->queue.arr[0].coder_id != c->uid || d->is_taken)
+		pthread_cond_wait(&d->cond, &d->mutex);
+	else if (d->queue.arr[0].coder_id == c->uid && !d->is_taken)
 	{
-		ts.tv_sec = d->free_when / 1000;
-		ts.tv_nsec = (d->free_when % 1000) * 1000000;
+		ts = to_ts(d->free_when - now_ms());
 		pthread_cond_timedwait(&d->cond, &d->mutex, &ts);
 	}
-	else
-		pthread_cond_wait(&d->cond, &d->mutex);
 }
 
-static t_request	request_ctor(t_dongle *d, t_coder *c)
+bool	is_free(long id, t_dongle *d)
 {
-	t_request	r;
-
-	r.coder_id = c->uid;
-	r.deadline = get_last(c) + d->table->config.deadline;
-	pthread_mutex_lock(&d->mutex);
-	r.ticket = d->queue.next_id++;
-	pthread_mutex_unlock(&d->mutex);
-	return (r);
+	return (d->queue.size > 0 && !d->is_taken && d->queue.arr[0].coder_id == id
+		&& now_ms() >= d->free_when);
 }
 
-bool	send_request(t_dongle *d, t_coder *c)
+bool	take_dongle(t_coder *c, t_pair *ps)
 {
-	t_request	req;
-
-	req = request_ctor(d, c);
-	pthread_mutex_lock(&d->mutex);
-	heap_push(&d->queue, &req);
-	while (!get_is_over(c->table) && !is_myturn(c, d))
-		wait_myturn(d);
-	if (get_is_over(c->table))
-		return (pthread_mutex_unlock(&d->mutex), false);
-	heap_pop(&d->queue);
-	d->is_taken = true;
-	pthread_mutex_unlock(&d->mutex);
+	heap_pop(&ps->first->queue);
+	heap_pop(&ps->second->queue);
+	ps->first->is_taken = true;
+	ps->second->is_taken = true;
+	log_state(c->uid, "has taken a dongle", c->table);
 	log_state(c->uid, "has taken a dongle", c->table);
 	return (true);
 }
 
-void	release_dongle(t_dongle *d)
+void	check_dongle(t_coder *c, t_pair *ps)
 {
-	pthread_mutex_lock(&d->mutex);
-	d->is_taken = false;
-	d->free_when = now_ms() + d->cooldown;
-	pthread_cond_broadcast(&d->cond);
-	pthread_mutex_unlock(&d->mutex);
+	if (!is_free(c->uid, ps->first))
+		wait(c, ps->first);
+	else
+		wait(c, ps->second);
 }

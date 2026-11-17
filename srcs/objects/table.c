@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 17:49:38 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/16 17:49:42 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/17 15:10:37 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_table	*new_table(t_config *config)
 	table->config = *config;
 	table->coders = new_coder(config);
 	table->dongles = new_dongle(config);
+	table->ticket_len = 0;
 	pthread_mutex_init(&table->log_mutex, NULL);
 	pthread_mutex_init(&table->sim_mutex, NULL);
 	pthread_cond_init(&table->sim_cond, NULL);
