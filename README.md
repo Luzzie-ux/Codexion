@@ -2,14 +2,14 @@
 
 # Introduction:
 
-In a room with many philosofers as there are forks, only you can organize them 
+In a room with many philosophers as there are forks, only you can organize them 
 to eat their spaghetti, think and sleep without making a mess.
 
 # Index:
 1. [Description](#Description)
 2. [Instructions](#instructions)
-    2. [Running the Project](#running-the-project)
-    3. [Makefile Commands](#makefile-commands)
+    1. [Running the Project](#running-the-project)
+    2. [Makefile Commands](#makefile-commands)
 3. [Project Cases](#project_cases)
 4. [Tests](#tests)
     1. [Easy cases](#easy)
@@ -39,14 +39,14 @@ When the compilation ends, it releases the both dongles, setting their cooldown.
 
 ## Debug:
 
-To debug the coder needs to have previosly done a compilation,
+To debug the coder needs to have previously done a compilation,
 and that the simulation has never ended.
 
 ## Refactor:
 
 To refactor, the simulation cannot have ended.
 
-Every coders need to compile regurlaly and should never burnout, if they do the simulation ends.
+Every coders need to compile regularly and should never burnout, if they do the simulation ends.
 The only other time a simulation ends is when at least the minimum amount of required compilation
 is reached between all coders.
 
@@ -70,7 +70,7 @@ The scheduler has to be either FIFO or EDF to work anything else will exit the p
 
 ## Running the Project:
 
-To run the program simply type `make` in your terminal in the root of the projet,
+To run the program simply type `make` in your terminal in the root of the project,
 and then `./codexion <args>` (args being the arguments discussed in the start of this section).
 
 ## Makefile Commands:
@@ -91,29 +91,29 @@ to format every source file and include file.
 `.PHONY`: lists all the rules that are to be able to run.
 
 # Project structure:
-.
-├── incs/
-│   └── codexion.h          # Shared types, structures, and function declarations
-├── srcs/
-│   ├── main.c              # Argument handling and program entry point
-│   ├── objects/
-│   │   ├── config.c        # Configuration parsing
-│   │   ├── coder.c         # Coder allocation and initialization
-│   │   ├── dongle.c        # Dongle allocation and initialization
-│   │   └── table.c         # Table setup and teardown
-│   ├── methods/
-│   │   ├── coder.c         # Thread-safe coder state accessors
-│   │   ├── dongle.c        # Dongle availability and acquisition helpers
-│   │   ├── pair.c          # Coordinated acquisition and release of dongle pairs
-│   │   ├── heap.c          # FIFO/EDF binary heap operations
-│   │   └── table.c         # Simulation state, logging, and shutdown helpers
-│   └── routine/
-│       ├── routine.c       # Coder compile/debug/refactor lifecycle
-│       ├── monitor.c      # Burnout detection and simulation lifecycle
-│       ├── helpers.c      # Time and small utility helpers
-│       └── utils.c        # Allocation and numeric conversion helpers
-├── Makefile
-└── README.md
+.  
+├── incs/  
+│   └── codexion.h          # Shared types, structures, and function declarations  
+├── srcs/  
+│   ├── main.c              # Argument handling and program entry point  
+│   ├── objects/  
+│   │   ├── config.c        # Configuration parsing  
+│   │   ├── coder.c         # Coder allocation and initialization  
+│   │   ├── dongle.c        # Dongle allocation and initialization  
+│   │   └── table.c         # Table setup and teardown  
+│   ├── methods/  
+│   │   ├── coder.c         # Thread-safe coder state accessors  
+│   │   ├── dongle.c        # Dongle availability and acquisition helpers  
+│   │   ├── pair.c          # Coordinated acquisition and release of dongle pairs  
+│   │   ├── heap.c          # FIFO/EDF binary heap operations  
+│   │   └── table.c         # Simulation state, logging, and shutdown helpers  
+│   └── routine/  
+│       ├── routine.c       # Coder compile/debug/refactor lifecycle  
+│       ├── monitor.c      # Burnout detection and simulation lifecycle  
+│       ├── helpers.c      # Time and small utility helpers  
+│       └── utils.c        # Allocation and numeric conversion helpers  
+├── Makefile  
+└── README.md  
 
 ## Blocking cases handled:
 
@@ -160,7 +160,7 @@ During shutdown, the monitor sets the simulation's end state and broadcasts on t
 
 # Tests:
 
-Below are supplied tests to check the program executiong, the tool: 
+Below are supplied tests to check the program execution, the tool: 
 codexion_tester can also be run to test everything.
 
 ## Easy:
@@ -191,8 +191,8 @@ Otherwise, only the fifo test will work.
 
 AI was used in this program to only test and debug possible paths from bug fixes, no code was written by it.
 
-The linux man pages: [man(7).org](https://man7.org/linux/man-pages/)
-The POSIX threads interface: [POSIX](https://pubs.opengroup.org/onlinepubs/9699919799/)
-The stackoverflow website: [Stackoverflow](https://stackoverflow.com/questions)
-The Dining Philosofers progblem on wikipedia: [wikipedia](https://en.wikipedia.org/wiki/Dining_philosophers_problem)
-The Subject Provided by the 42 School: [intra](https://cdn.intra.42.fr/pdf/pdf/229796/en.subject.pdf)
+The linux man pages: [man(7).org](https://man7.org/linux/man-pages/)  
+The POSIX threads interface: [POSIX](https://pubs.opengroup.org/onlinepubs/9699919799/)  
+The stackoverflow website: [Stackoverflow](https://stackoverflow.com/questions)  
+The Dining Philosofers progblem on wikipedia: [wikipedia](https://en.wikipedia.org/wiki/Dining_philosophers_problem)  
+The Subject Provided by the 42 School: [intra](https://cdn.intra.42.fr/pdf/pdf/229796/en.subject.pdf)  
