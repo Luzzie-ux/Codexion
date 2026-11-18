@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 18:38:33 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/18 11:29:06 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/18 11:55:34 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ t_removed	restart(t_coder *c, t_pair *ps)
 		return (wait(c, ps->first), SECOND);
 	}
 	else
-		check_dongle(c, ps);
-	return (BOTH);
+		return (check_dongle(c, ps));
 }
 
 void	create_request(t_pair *ps, t_request *r)
@@ -54,11 +53,13 @@ void	create_request(t_pair *ps, t_request *r)
 		heap_push(&ps->first->queue, r);
 	else if (ps->was_rmvd == SECOND)
 		heap_push(&ps->second->queue, r);
-	else
+	else if (ps->was_rmvd == BOTH)
 	{
 		heap_push(&ps->first->queue, r);
 		heap_push(&ps->second->queue, r);
 	}
+	else
+		return ;
 }
 
 static bool	loop(t_coder *c, t_pair *ps, t_request *r)
@@ -103,6 +104,7 @@ bool	acquire_dongles(t_coder *c, t_pair *ps)
 	pthread_mutex_unlock(&t->log_mutex);
 	pthread_mutex_lock(&ps->first->mutex);
 	pthread_mutex_lock(&ps->second->mutex);
+	ps->was_rmvd = BOTH;
 	create_request(ps, &r);
 	pthread_mutex_unlock(&ps->second->mutex);
 	pthread_mutex_unlock(&ps->first->mutex);

@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 14:55:54 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/18 11:25:00 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/18 12:01:07 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ t_removed	check_dongle(t_coder *c, t_pair *ps)
 	{
 		pthread_mutex_unlock(&ps->second->mutex);
 		wait(c, ps->first);
-		return (FIRST);
+		return (NONE);
 	}
 	else
 	{
 		pthread_mutex_unlock(&ps->first->mutex);
 		wait(c, ps->second);
-		return (SECOND);
+		return (NONE);
 	}
 }
