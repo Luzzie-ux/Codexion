@@ -94,7 +94,7 @@ bool	acquire_dongles(t_coder *c, t_pair *ps)
 {
 	t_request	r;
 	t_table		*t;
-	bool res;
+	bool		res;
 
 	t = c->table;
 	pthread_mutex_lock(&t->log_mutex);
