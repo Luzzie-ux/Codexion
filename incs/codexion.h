@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 17:44:57 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/17 18:52:33 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/18 11:05:25 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ bool						is_free(long id, t_dongle *d);
 t_removed					restart(t_coder *c, t_pair *ps);
 void						create_request(t_pair *ps, t_request *r);
 bool						take_dongle(t_coder *c, t_pair *ps);
-void						check_dongle(t_coder *c, t_pair *ps);
+t_removed					check_dongle(t_coder *c, t_pair *ps);
 
 // Heap Methods:
 void						heap_push(t_heap *queue, t_request *request);

@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 14:55:54 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/17 18:52:56 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/18 11:25:00 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	wait(t_coder *c, t_dongle *d)
 	struct timespec	ts;
 
 	if (get_is_over(c->table))
-		return ;
+		return (pthread_mutex_unlock(&d->mutex), (void)0);
 	else if (d->queue.arr[0].coder_id != c->uid || d->is_taken)
 		pthread_cond_wait(&d->cond, &d->mutex);
 	else if (d->queue.arr[0].coder_id == c->uid && !d->is_taken)
@@ -27,6 +27,7 @@ void	wait(t_coder *c, t_dongle *d)
 		ts = to_ts(d->free_when - now_ms());
 		pthread_cond_timedwait(&d->cond, &d->mutex, &ts);
 	}
+	pthread_mutex_unlock(&d->mutex);
 }
 
 bool	is_free(long id, t_dongle *d)
@@ -46,10 +47,18 @@ bool	take_dongle(t_coder *c, t_pair *ps)
 	return (true);
 }
 
-void	check_dongle(t_coder *c, t_pair *ps)
+t_removed	check_dongle(t_coder *c, t_pair *ps)
 {
 	if (!is_free(c->uid, ps->first))
+	{
+		pthread_mutex_unlock(&ps->second->mutex);
 		wait(c, ps->first);
+		return (FIRST);
+	}
 	else
+	{
+		pthread_mutex_unlock(&ps->first->mutex);
 		wait(c, ps->second);
+		return (SECOND);
+	}
 }

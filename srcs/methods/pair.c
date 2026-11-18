@@ -6,7 +6,7 @@
 /*   By: rodrpere <rodrpere@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 18:38:33 by rodrpere          #+#    #+#             */
-/*   Updated: 2026/11/17 19:01:06 by rodrpere         ###   ########.fr       */
+/*   Updated: 2026/11/18 11:29:06 by rodrpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 
 void	release_dongles(t_pair *ps)
 {
-	long	cooldown;
-
 	pthread_mutex_lock(&ps->first->mutex);
 	pthread_mutex_lock(&ps->second->mutex);
-	cooldown = ps->first->cooldown;
 	ps->first->is_taken = false;
-	ps->first->cooldown = now_ms() + cooldown;
+	ps->first->free_when = now_ms() + ps->first->cooldown;
 	pthread_cond_broadcast(&ps->first->cond);
 	ps->second->is_taken = false;
-	ps->second->cooldown = now_ms() + cooldown;
+	ps->second->free_when = now_ms() + ps->second->cooldown;
 	pthread_cond_broadcast(&ps->second->cond);
 	pthread_mutex_unlock(&ps->second->mutex);
 	pthread_mutex_unlock(&ps->first->mutex);
@@ -36,12 +33,14 @@ t_removed	restart(t_coder *c, t_pair *ps)
 	{
 		heap_pop(&ps->first->queue);
 		pthread_cond_broadcast(&ps->first->cond);
+		pthread_mutex_unlock(&ps->first->mutex);
 		return (wait(c, ps->second), FIRST);
 	}
 	else if (is_free(c->uid, ps->second) && ps->first->is_taken)
 	{
 		heap_pop(&ps->second->queue);
 		pthread_cond_broadcast(&ps->second->cond);
+		pthread_mutex_unlock(&ps->second->mutex);
 		return (wait(c, ps->first), SECOND);
 	}
 	else
@@ -69,10 +68,13 @@ static bool	loop(t_coder *c, t_pair *ps, t_request *r)
 	done = false;
 	while (1)
 	{
+		pthread_mutex_lock(&ps->first->mutex);
+		pthread_mutex_lock(&ps->second->mutex);
 		if (get_is_over(c->table))
 		{
-			done = false;
-			break ;
+			pthread_mutex_unlock(&ps->second->mutex);
+			pthread_mutex_unlock(&ps->first->mutex);
+			return (done);
 		}
 		if (is_free(c->uid, ps->first) && is_free(c->uid, ps->second))
 		{
@@ -102,6 +104,8 @@ bool	acquire_dongles(t_coder *c, t_pair *ps)
 	pthread_mutex_lock(&ps->first->mutex);
 	pthread_mutex_lock(&ps->second->mutex);
 	create_request(ps, &r);
+	pthread_mutex_unlock(&ps->second->mutex);
+	pthread_mutex_unlock(&ps->first->mutex);
 	res = loop(c, ps, &r);
 	return (res);
 }
